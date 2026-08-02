@@ -1,0 +1,55 @@
+# ===================================================================
+# HCUP NIS DATA USE AGREEMENT — NOTHING BELOW MAY EVER BE COMMITTED
+# ===================================================================
+# The NIS is restricted-use data licensed from AHRQ/HCUP. Redistribution
+# of record-level data (including via a public or private git remote) is
+# a DUA violation. See DATA_HANDLING.md.
+
+# --- Raw restricted data (record level) ---
+*.SAV
+*.sav
+*.ASC
+*.asc
+*.dta
+*.parquet
+*.feather
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+
+# --- HCUP reference workbooks (licensed, redistributable only by AHRQ) ---
+*.xlsx
+*.xls
+*.csv
+# Re-include the curated results: aggregate and cell-suppressed, safe to
+# publish. NOTE: gitignore has no trailing-comment syntax — a comment after
+# a pattern on the same line becomes part of the pattern and silently
+# matches nothing. Keep these on their own lines.
+!results/
+!results/**/*.csv
+!results/**/*.md
+
+# --- Derived intermediates (may contain record-level rows) ---
+cache/
+data/
+interim/
+Birth*Injury*
+Medical?Output*
+
+# --- Notebook outputs: strip before commit, never commit checkpoints ---
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+_originals_do_not_commit/
+
+# --- Run logs (harmless, but noise) ---
+*.log
+
+# --- Editor / OS ---
+.idea/
+.vscode/
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+venv/

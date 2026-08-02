@@ -1,0 +1,12 @@
+code_a,desc_a,code_b,desc_b,n_both,hospitals_contributing,pct_of_all_hospitals,top10_share_of_pairs,top10_share_of_discharges,concentration,group
+E840,Cystic fibrosis with pulmonary manifestations,K8681,Exocrine pancreatic insufficiency,2537,271,5.932574430823117,0.20575482853764288,0.01126710856665309,18.26154663554135,established clinical link
+E1143,Type 2 diabetes w diabetic autonomic (poly)neuropathy,K3184,Gastroparesis,25172,2758,60.37653239929948,0.029079930081042427,0.014125741744726176,2.0586480063533212,established clinical link
+I120,Hyp chr kidney disease w stage 5 chr kidney disease or ESRD,Z992,Dependence on renal dialysis,78516,2548,55.779334500875656,0.029535381323551886,0.011893608025630293,2.4832986979143934,established clinical link
+G800,Spastic quadriplegic cerebral palsy,J690,Pneumonitis due to inhalation of food and vomit,1022,504,11.033274956217163,0.13405088062622308,0.006918456959218951,19.375835018760682,established clinical link
+D62,Acute posthemorrhagic anemia,I8511,Secondary esophageal varices with bleeding,5034,1605,35.135726795096325,0.04469606674612634,0.009422760790281494,4.743415198677786,established clinical link
+G931,"Anoxic brain damage, not elsewhere classified",I469,"Cardiac arrest, cause unspecified",7027,1841,40.30210157618214,0.027892414970826812,0.010245482477284453,2.7224110755806636,established clinical link
+G44209,"Tension-type headache, unspecified, not intractable",J310,Chronic rhinitis,964,11,0.24080560420315236,0.9989626556016598,0.0075254753624641,132.74412678092472,suspected coding artefact
+G44209,"Tension-type headache, unspecified, not intractable",J40,"Bronchitis, not specified as acute or chronic",608,16,0.3502626970227671,0.9901315789473685,0.005194524694002728,190.61062123556985,suspected coding artefact
+J310,Chronic rhinitis,J40,"Bronchitis, not specified as acute or chronic",676,55,1.204028021015762,0.9334319526627219,0.003740927368836381,249.51886541252654,suspected coding artefact
+F250,"Schizoaffective disorder, bipolar type",J310,Chronic rhinitis,565,21,0.45971978984238177,0.9805309734513274,0.005286706791053678,185.4710337086617,suspected coding artefact
+F250,"Schizoaffective disorder, bipolar type",G44209,"Tension-type headache, unspecified, not intractable",582,28,0.6129597197898424,0.9690721649484536,0.003893670139141323,248.883991277742,suspected coding artefact

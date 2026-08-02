@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 258" width="860" height="258" role="img" aria-label="A real pattern, hidden by the wrong comparison group">
+<rect x="0.5" y="0.5" width="859" height="257" rx="10" fill="#fcfcfb" stroke="#e4e3df"/>
+<text x="24.0" y="34.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" text-anchor="start">A real pattern, hidden by the wrong comparison group</text>
+<text x="24.0" y="55.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Newborns tested for metabolic problems vs. mothers with diabetes.</text>
+<text x="24.0" y="92.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">How strongly the two are linked</text>
+<text x="24.0" y="125.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Measured across all 7 million hospital stays</text>
+<rect x="300" y="111" width="300" height="19" fill="#eceae5" rx="4"/>
+<path d="M300.0,111.0 H339.7 a4,4 0 0 1 4,4 V126.0 a4,4 0 0 1 -4,4 H300.0 Z" fill="#b6b4ad"/>
+<text x="612.0" y="126.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">26×</text>
+<text x="24.0" y="163.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Measured within newborns only</text>
+<rect x="300" y="149" width="300" height="19" fill="#eceae5" rx="4"/>
+<path d="M300.0,149.0 H576.5 a4,4 0 0 1 4,4 V164.0 a4,4 0 0 1 -4,4 H300.0 Z" fill="#2a78d6"/>
+<text x="612.0" y="164.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">168×</text>
+<text x="24.0" y="204.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11.5" font-weight="400" fill="#84837d" text-anchor="start">Six times stronger than it first appeared. 6.4 million adults — who cannot have either condition — were watering it down.</text>
+<text x="24.0" y="242.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: results/candidates_with_dispersion.csv · 4,164 hospital stays across 725 hospitals</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 552" width="860" height="552" role="img" aria-label="How many hospitals produced each pattern?">
+<rect x="0.5" y="0.5" width="859" height="551" rx="10" fill="#fcfcfb" stroke="#e4e3df"/>
+<text x="24.0" y="34.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" text-anchor="start">How many hospitals produced each pattern?</text>
+<text x="24.0" y="55.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Out of 4,568 hospitals. A real medical link shows up everywhere; a local habit does not.</text>
+<rect x="24" y="70" width="11" height="11" rx="3" fill="#2a78d6"/>
+<text x="42.0" y="80.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start">Established medical link</text>
+<rect x="216" y="70" width="11" height="11" rx="3" fill="#eb6834"/>
+<text x="234.0" y="80.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start">Suspected paperwork artefact</text>
+<text x="24.0" y="131.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Diabetic nerve damage + stomach paralysis</text>
+<rect x="400" y="119" width="350" height="16" fill="#eceae5" rx="4"/>
+<path d="M400.0,119.0 H607.3 a4,4 0 0 1 4,4 V131.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="762.0" y="132.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">2,758</text>
+<text x="24.0" y="165.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Kidney failure + dialysis</text>
+<rect x="400" y="153" width="350" height="16" fill="#eceae5" rx="4"/>
+<path d="M400.0,153.0 H591.2 a4,4 0 0 1 4,4 V165.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="762.0" y="166.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">2,548</text>
+<text x="24.0" y="199.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Cardiac arrest + brain oxygen loss</text>
+<rect x="400" y="187" width="350" height="16" fill="#eceae5" rx="4"/>
+<path d="M400.0,187.0 H537.1 a4,4 0 0 1 4,4 V199.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="762.0" y="200.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">1,841</text>
+<text x="24.0" y="233.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Blood-loss anaemia + bleeding veins</text>
+<rect x="400" y="221" width="350" height="16" fill="#eceae5" rx="4"/>
+<path d="M400.0,221.0 H519.0 a4,4 0 0 1 4,4 V233.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="762.0" y="234.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">1,605</text>
+<text x="24.0" y="267.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Severe cerebral palsy + choking pneumonia</text>
+<rect x="400" y="255" width="350" height="16" fill="#eceae5" rx="4"/>
+<path d="M400.0,255.0 H434.6 a4,4 0 0 1 4,4 V267.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="762.0" y="268.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">504</text>
+<text x="24.0" y="301.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Cystic fibrosis + pancreas failure</text>
+<rect x="400" y="289" width="350" height="16" fill="#eceae5" rx="4"/>
+<path d="M400.0,289.0 H416.8 a4,4 0 0 1 4,4 V301.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="762.0" y="302.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">271</text>
+<text x="24.0" y="335.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Stuffy nose + chest infection</text>
+<rect x="400" y="323" width="350" height="16" fill="#eceae5" rx="4"/>
+<path d="M400.0,323.0 H400.2 a4,4 0 0 1 4,4 V335.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#eb6834"/>
+<text x="762.0" y="336.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">55</text>
+<text x="24.0" y="369.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Schizoaffective disorder + headaches</text>
+<rect x="400" y="357" width="350" height="16" fill="#eceae5" rx="4"/>
+<rect x="400.0" y="357.0" width="2.1" height="16" fill="#eb6834"/>
+<text x="762.0" y="370.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">28</text>
+<text x="24.0" y="403.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Schizoaffective disorder + stuffy nose</text>
+<rect x="400" y="391" width="350" height="16" fill="#eceae5" rx="4"/>
+<rect x="400.0" y="391.0" width="1.6" height="16" fill="#eb6834"/>
+<text x="762.0" y="404.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">21</text>
+<text x="24.0" y="437.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Headaches + chest infection</text>
+<rect x="400" y="425" width="350" height="16" fill="#eceae5" rx="4"/>
+<rect x="400.0" y="425.0" width="1.2" height="16" fill="#eb6834"/>
+<text x="762.0" y="438.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">16</text>
+<text x="24.0" y="471.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Tension headaches + stuffy nose</text>
+<rect x="400" y="459" width="350" height="16" fill="#eceae5" rx="4"/>
+<rect x="400.0" y="459.0" width="0.8" height="16" fill="#eb6834"/>
+<text x="762.0" y="472.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">11</text>
+<line x1="400" y1="108" x2="400" y2="484" stroke="#e4e3df"/>
+<text x="24.0" y="536.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: src/hospital_concentration.py · bars scaled against all 4,568 hospitals</text>
+</svg>

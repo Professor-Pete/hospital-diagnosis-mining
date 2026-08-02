@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# HCUP NIS leak guard. Install with: bash tools/install_git_hooks.sh
+#
+# Blocks a commit if any staged file looks like restricted record-level
+# data. .gitignore alone is not enough: `git add -f`, a rename, or a new
+# extension slips straight past it.
+set -uo pipefail
+
+fail=0
+note() { printf '  \033[31m✗\033[0m %s\n' "$1"; fail=1; }
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$staged" ] && exit 0
+
+echo "HCUP leak guard:"
+
+# 1. Restricted raw-data extensions.
+while IFS= read -r f; do
+  # macOS ships bash 3.2, so lowercase via tr rather than ${f,,}.
+  case "$(printf '%s' "$f" | tr '[:upper:]' '[:lower:]')" in
+    *.sav|*.asc|*.dta|*.xlsx|*.xls|*.parquet|*.feather|*.pkl|*.pickle|*.h5|*.hdf5)
+      case "$f" in
+        results/*) ;;                       # curated aggregate output
+        *) note "restricted data file staged: $f" ;;
+      esac ;;
+  esac
+done <<< "$staged"
+
+# 2. Notebooks must have no saved outputs (they embed record-level rows).
+while IFS= read -r f; do
+  [[ "$f" == *.ipynb ]] || continue
+  if git show ":$f" | python3 -c '
+import json,sys
+nb=json.load(sys.stdin)
+bad=sum(1 for c in nb.get("cells",[]) if c.get("cell_type")=="code" and c.get("outputs"))
+sys.exit(1 if bad else 0)
+'; then :; else
+    note "notebook has saved outputs: $f  (run: python tools/strip_notebook_outputs.py)"
+  fi
+done <<< "$staged"
+
+# 3. Anything unexpectedly large is almost certainly data.
+while IFS= read -r f; do
+  [ -f "$f" ] || continue
+  sz=$(wc -c < "$f" | tr -d ' ')
+  if [ "$sz" -gt 5000000 ]; then
+    note "file >5 MB staged: $f ($((sz/1000000)) MB)"
+  fi
+done <<< "$staged"
+
+# 4. Record identifiers appearing in tracked text.
+if git diff --cached -U0 | grep -qE '^\+.*\bKEY_NIS\b.*[0-9]{7,}'; then
+  note "staged diff contains KEY_NIS values (record identifiers)"
+fi
+
+if [ "$fail" -ne 0 ]; then
+  cat <<'EOF'
+
+Commit blocked. See DATA_HANDLING.md.
+Override only if you are certain the file is aggregate and cell-suppressed:
+  git commit --no-verify
+EOF
+  exit 1
+fi
+
+echo "  ✓ clean"
+exit 0

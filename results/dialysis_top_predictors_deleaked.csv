@@ -1,0 +1,21 @@
+code,coef,odds_ratio,description
+E839,3.837026712483295,46.38734627655977,"Disorder of mineral metabolism, unspecified"
+M898X9,3.291027287261324,26.870453156534698,"Other specified disorders of bone, unspecified site"
+T82838A,2.9859266406334672,19.804845710928618,"Hemorrhage due to vascular prosth dev/grft, init"
+E8889,2.8019644605075102,16.476983381837,Other specified metabolic disorders
+E892,2.69896812230379,14.86438558061402,Postprocedural hypoparathyroidism
+E8359,2.5328466439047315,12.589292409617254,Other disorders of calcium metabolism
+Z9483,2.403909257526486,11.066353155452688,Pancreas transplant status
+Z7682,2.395332250670537,10.971842855699663,Awaiting organ transplant status
+E8779,2.2850463983459584,9.82614213018263,Other fluid overload
+I776,2.1527079664663313,8.608137411004485,"Arteritis, unspecified"
+E213,2.1417174113857103,8.514047201574432,"Hyperparathyroidism, unspecified"
+Y830,2.132382985735521,8.434943230427603,"Txplt of whole organ cause abn react/compl, w/o misadvnt"
+E211,2.100068927076669,8.166732802186251,"Secondary hyperparathyroidism, not elsewhere classified"
+E859,2.073424324114032,7.952006797052511,"Amyloidosis, unspecified"
+M899,2.0668509643289665,7.89990681891187,"Disorder of bone, unspecified"
+T827XXA,2.037802824634229,7.673730131725143,"Infect/inflm react d/t oth cardi/vasc dev/implnt/grft, init"
+T82868A,2.029989875904434,7.61400927343224,"Thrombosis due to vascular prosth dev/grft, init"
+T82898A,1.9685461353489608,7.160258870014685,"Oth complication of vascular prosth dev/grft, init"
+E8770,1.860621518048422,6.427730480723533,"Fluid overload, unspecified"
+T82858A,1.8549848135350815,6.3916011840566975,"Stenosis of other vascular prosth dev/grft, init"

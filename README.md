@@ -23,8 +23,18 @@ legal one.
 
 Everything in `results/` is aggregate and passes the agreement's cell-size rule
 (no figure may rest on 10 or fewer patients), so the findings are readable
-without the data. Reproducing them requires your own DUA with AHRQ. Details in
-[`DATA_HANDLING.md`](DATA_HANDLING.md).
+without the data. Reproducing them requires your own DUA with AHRQ.
+
+Three things keep the data out of this repo: a `.gitignore` covering the raw
+file and everything derived from it, a pre-commit hook that blocks the commit
+if a restricted file is staged or a notebook still has saved output, and a
+tool that strips those outputs. That middle one matters most — the real
+exposure risk is not the 2 GB data file, which is obvious, but notebooks:
+running a cell that prints a dataframe saves those rows *inside* the `.ipynb`,
+so a file that looks like source code can carry hundreds of patient records.
+
+The hook lives in `.git/hooks/`, which git does not track. After cloning, run
+`bash tools/install_git_hooks.sh` or that layer is missing.
 
 ## What the project was trying to do
 

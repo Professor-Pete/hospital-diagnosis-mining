@@ -3,7 +3,7 @@
 # ===================================================================
 # The NIS is restricted-use data licensed from AHRQ/HCUP. Redistribution
 # of record-level data (including via a public or private git remote) is
-# a DUA violation. See DATA_HANDLING.md.
+# a DUA violation. tools/pre-commit enforces this on top of these rules.
 
 # --- Raw restricted data (record level) ---
 *.SAV

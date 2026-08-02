@@ -56,7 +56,13 @@ fi
 if [ "$fail" -ne 0 ]; then
   cat <<'EOF'
 
-Commit blocked. See DATA_HANDLING.md.
+Commit blocked. The NIS is restricted-use data under an AHRQ Data Use
+Agreement: record-level data must not be redistributed, and no published
+figure may rest on 10 or fewer discharges.
+
+  notebook outputs?   python tools/strip_notebook_outputs.py
+  raw data staged?    unstage it; it belongs in cache/ or outside the repo
+
 Override only if you are certain the file is aggregate and cell-suppressed:
   git commit --no-verify
 EOF

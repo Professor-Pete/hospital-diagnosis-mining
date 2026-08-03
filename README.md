@@ -169,12 +169,18 @@ apart in the real world.
 So every kidney- and dialysis-related code was removed, and the model was fit
 again from scratch.
 
-![Spotting dialysis patients with every kidney clue taken away: 14 times better than random guessing.](figures/03-model.svg)
+![Spotting dialysis patients with every kidney clue taken away: 37% versus 2% for random guessing, 16 times better than chance.](figures/03-model.svg)
 
 **This is the result worth reporting.** With no kidney reference of any kind
-available, the model still identifies dialysis patients roughly 14 times better
+available, the model still identifies dialysis patients roughly 16 times better
 than chance. It does it by recognising the body-wide damage that kidney failure
 causes.
+
+A note on that 37%, because it is easy to misread: it is not "right 37% of the
+time". It is a summary of how well the model ranks patients by risk, on a scale
+where blind guessing scores 2.3% — the share of patients who are actually on
+dialysis. Every figure below uses the same "times better than chance" framing so
+the numbers can be compared to each other.
 
 ### How much does each part of that damage actually contribute?
 
@@ -206,32 +212,33 @@ Naming four groups and stopping there would have overstated how tidy it is.
 
 ### Is dialysis the best condition to try this on?
 
-Not necessarily — so the same model was run against fifteen other diagnoses,
-with the same automatic rule for stripping giveaway codes so no condition gets
-favourable treatment.
+Not necessarily — so the same model was run against six other diagnoses, chosen
+to span easy and hard, common and rare.
 
-![How well each condition can be predicted: dialysis 0.988, ventilator dependence 0.967, severe sepsis 0.949, end-of-life care 0.949, down to anaemia 0.707.](figures/06-targets.svg)
+![How much better than guessing, for each condition: severe sepsis 21x, dialysis 16x, heart failure 5x, sleep apnoea 5x, type 2 diabetes 5x, smoker 3x, anaemia 2x.](figures/06-targets.svg)
 
-Two things stand out.
+**Severe sepsis with septic shock is the better showcase.** It beats dialysis,
+and its explanation is far cleaner: the model spots it through severe infections
+(peritonitis, necrotising fasciitis, cholangitis) and the organ failures they
+trigger (blood-clotting collapse, respiratory failure). That is a *causal* story
+a clinician would recognise instantly. Dialysis dependence, by contrast, is an
+administrative status code — the model reaches it through the wreckage that
+surrounds it, which is interesting but indirect.
 
-**Severe sepsis with septic shock is the better showcase.** It scores nearly as
-well as dialysis, and its explanation is far cleaner: the model spots it through
-severe infections (peritonitis, necrotising fasciitis, cholangitis) and the
-organ failures they trigger (blood-clotting collapse, respiratory failure).
-That's a *causal* story a clinician would recognise immediately. Dialysis
-dependence, by contrast, is an administrative status code — the model finds it
-through the wreckage that surrounds it, which is interesting but indirect.
+**The bottom of the chart is as informative as the top.** Anaemia manages only
+twice chance. That is not a failure of the model; it is a fact about the
+condition. Anaemia turns up in almost every kind of patient for almost every
+reason, so the rest of the chart barely narrows it down. Severe sepsis and
+dialysis are predictable precisely because they leave a specific, systemic mark
+on everything else recorded. Being a smoker sits near the bottom for a different
+reason — it is a behaviour, not a physiological state, so the body does not
+necessarily show it.
 
-**Obesity looks strong and isn't.** It scores 0.915, but its top predictors are
-all BMI codes — the measurement that *defines* obesity. The automatic filter
-missed them because "Body mass index" shares no words with "Obesity", so nothing
-flagged them as giveaways. That is the same leakage trap as the dialysis model's
-first attempt, caught here by reading the output rather than trusting the score.
-
-Both dialysis rows are on the chart: the stricter, hand-built filter used
-earlier scores 0.945, the uniform automatic one 0.988. The gap is the cost of
-generic rules — a filter built with knowledge of one specific condition removes
-more, and scores lower and more honestly.
+Dialysis is shown here under the stricter, condition-specific clue filter, the
+same one behind the 16x above. The other six use the automatic filter, which is
+blunter. If dialysis were given that blunter treatment it would score about 32x,
+and the number would be worse — it would be counting kidney codes the automatic
+rule failed to spot as giveaways.
 
 ## What this cannot tell you
 
@@ -255,7 +262,7 @@ python src/hospital_concentration.py # is it clinical, or one hospital's habit?
 python src/triage_findings.py        # collapse to a reviewable shortlist
 python src/predict_dialysis.py       # the model, under three leakage regimes
 python src/feature_importance.py     # what carries the prediction
-python src/compare_targets.py        # the same model against 15 other diagnoses
+python src/compare_targets.py        # the same model against six other diagnoses
 python tools/make_figures.py         # regenerate the charts above
 ```
 

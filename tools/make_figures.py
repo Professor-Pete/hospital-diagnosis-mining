@@ -169,8 +169,11 @@ def fig_hospitals() -> str:
 
 def fig_model() -> str:
     m = pd.read_csv(RESULTS / "dialysis_model_comparison.csv")
-    naive = m[m["regime"].str.startswith("all codes")].iloc[1]     # random forest
-    strict = m[m["regime"].str.startswith("also no renal")].iloc[1]
+    # Logistic regression rows (iloc[0]) — the same model family used in
+    # compare_targets.py, so the "times better than chance" figure quoted
+    # here and there cannot drift apart.
+    naive = m[m["regime"].str.startswith("all codes")].iloc[0]
+    strict = m[m["regime"].str.startswith("also no renal")].iloc[0]
     ap_base = 100 * naive["ap_baseline"]
     ap_strict = 100 * strict["avg_precision"]
 
@@ -195,7 +198,7 @@ def fig_model() -> str:
         "Spotting dialysis patients with every kidney clue taken away",
         "How reliably the model picks them out, next to what random guessing achieves.",
         "\n".join(parts),
-        "Source: results/dialysis_model_comparison.csv (random forest) · metric is average precision",
+        "Source: results/dialysis_model_comparison.csv (logistic regression) · metric is average precision",
     )
 
 
@@ -278,20 +281,10 @@ def fig_importance() -> str:
 
 TARGET_PLAIN = {
     "Z992": "On kidney dialysis",
-    "Z992*": "On kidney dialysis (stricter clue removal)",
-    "Z9911": "Dependent on a breathing machine",
     "R6521": "Severe sepsis with septic shock",
-    "Z515": "Receiving end-of-life care",
-    "E669": "Obesity",
-    "Z930": "Has a surgical airway (tracheostomy)",
-    "Z66": "Do-not-resuscitate order",
     "I509": "Heart failure",
-    "F1120": "Opioid dependence",
     "E119": "Type 2 diabetes",
-    "N390": "Urinary tract infection",
     "G4733": "Sleep apnoea",
-    "J449": "COPD",
-    "I4891": "Atrial fibrillation",
     "F17210": "Smoker",
     "D649": "Anaemia",
 }
@@ -299,41 +292,39 @@ TARGET_PLAIN = {
 
 def fig_targets() -> str:
     df = pd.read_csv(RESULTS / "target_comparison.csv").sort_values(
-        "roc_auc", ascending=False)
+        "lift_over_chance", ascending=False)
 
-    w, top, row = 860, 104, 29
-    h = top + row * len(df) + 78
+    w, top, row = 860, 110, 38
+    h = top + row * len(df) + 76
     x0, bar_w = 400, 300
-    lo = 0.5  # a coin flip
+    vmax = float(df["lift_over_chance"].max()) * 1.05
 
     parts = [
-        f'<rect x="24" y="72" width="11" height="11" rx="3" fill="{ORANGE}"/>',
-        text(42, 82, "Clearest to explain", 12, INK_2),
-        f'<rect x="230" y="72" width="11" height="11" rx="3" fill="{GRAY}"/>',
-        text(248, 82, "Score inflated by a clue the filter missed", 12, INK_2),
+        f'<rect x="24" y="78" width="11" height="11" rx="3" fill="{ORANGE}"/>',
+        text(42, 88, "Clearest to explain", 12, INK_2),
     ]
     for i, (_, r) in enumerate(df.iterrows()):
         y = top + i * row
         label = TARGET_PLAIN.get(r["code"], r["description"][:38])
-        colour = ORANGE if r["code"] == "R6521" else (
-            GRAY if r["code"] == "E669" else BLUE)
-        parts.append(text(24, y + 14, label, 12.5, INK_2))
-        parts.append(f'<rect x="{x0}" y="{y + 2}" width="{bar_w}" height="15" fill="{GRID}" rx="4"/>')
-        parts.append(bar(x0, y + 2, bar_w * (r["roc_auc"] - lo) / (1 - lo), 15, colour))
-        parts.append(text(x0 + bar_w + 12, y + 15, f'{r["roc_auc"]:.3f}', 12.5,
+        colour = ORANGE if r["code"] == "R6521" else BLUE
+        parts.append(text(24, y + 15, label, 13, INK_2))
+        parts.append(text(24, y + 30, f'{r["prevalence_pct"]:.1f}% of patients have it',
+                          10.5, INK_3))
+        parts.append(f'<rect x="{x0}" y="{y + 3}" width="{bar_w}" height="18" fill="{GRID}" rx="4"/>')
+        parts.append(bar(x0, y + 3, bar_w * r["lift_over_chance"] / vmax, 18, colour))
+        parts.append(text(x0 + bar_w + 12, y + 17, f'{r["lift_over_chance"]:.0f}x', 14,
                           INK, weight=600))
 
-    parts.append(text(24, top + row * len(df) + 26,
-                      "0.50 is a coin flip; 1.00 is perfect. Every condition uses the same "
-                      "automatic clue-removal, so these are comparable to each other.",
-                      11.5, INK_3))
+    parts.append(text(24, top + row * len(df) + 24,
+                      "Dialysis uses a stricter, condition-specific clue filter than the other "
+                      "six, so its number here is the conservative one.", 11.5, INK_3))
 
     return frame(
         w, h,
-        "How well can each condition be predicted from the rest of the chart?",
-        "Sixteen diagnoses, same model, same rules for removing giveaway codes.",
+        "How much better than guessing, for each condition?",
+        "Same model and same rules throughout. 1x would mean no better than chance.",
         "\n".join(parts),
-        "Source: results/target_comparison.csv · ROC-AUC on held-out data",
+        "Source: results/target_comparison.csv · average precision against each condition's own chance floor",
     )
 
 

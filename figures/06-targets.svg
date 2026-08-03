@@ -1,79 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 675" width="860" height="675" role="img" aria-label="How well can each condition be predicted from the rest of the chart?">
-<rect x="0.5" y="0.5" width="859" height="674" rx="10" fill="#fcfcfb" stroke="#e4e3df"/>
-<text x="24.0" y="34.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" text-anchor="start">How well can each condition be predicted from the rest of the chart?</text>
-<text x="24.0" y="55.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Sixteen diagnoses, same model, same rules for removing giveaway codes.</text>
-<rect x="24" y="72" width="11" height="11" rx="3" fill="#eb6834"/>
-<text x="42.0" y="82.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start">Clearest to explain</text>
-<rect x="230" y="72" width="11" height="11" rx="3" fill="#b6b4ad"/>
-<text x="248.0" y="82.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start">Score inflated by a clue the filter missed</text>
-<text x="24.0" y="118.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">On kidney dialysis</text>
-<rect x="400" y="106" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,106.0 H688.5 a4,4 0 0 1 4,4 V117.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="119.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.988</text>
-<text x="24.0" y="147.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Dependent on a breathing machine</text>
-<rect x="400" y="135" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,135.0 H676.3 a4,4 0 0 1 4,4 V146.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="148.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.967</text>
-<text x="24.0" y="176.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Severe sepsis with septic shock</text>
-<rect x="400" y="164" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,164.0 H665.4 a4,4 0 0 1 4,4 V175.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#eb6834"/>
-<text x="712.0" y="177.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.949</text>
-<text x="24.0" y="205.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Receiving end-of-life care</text>
-<rect x="400" y="193" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,193.0 H665.1 a4,4 0 0 1 4,4 V204.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="206.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.949</text>
-<text x="24.0" y="234.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">On kidney dialysis (stricter clue removal)</text>
-<rect x="400" y="222" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,222.0 H663.2 a4,4 0 0 1 4,4 V233.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="235.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.945</text>
-<text x="24.0" y="263.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Obesity</text>
-<rect x="400" y="251" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,251.0 H645.0 a4,4 0 0 1 4,4 V262.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#b6b4ad"/>
-<text x="712.0" y="264.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.915</text>
-<text x="24.0" y="292.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Has a surgical airway (tracheostomy)</text>
-<rect x="400" y="280" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,280.0 H637.9 a4,4 0 0 1 4,4 V291.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="293.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.903</text>
-<text x="24.0" y="321.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Do-not-resuscitate order</text>
-<rect x="400" y="309" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,309.0 H637.9 a4,4 0 0 1 4,4 V320.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="322.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.903</text>
-<text x="24.0" y="350.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Heart failure</text>
-<rect x="400" y="338" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,338.0 H632.7 a4,4 0 0 1 4,4 V349.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="351.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.895</text>
-<text x="24.0" y="379.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Opioid dependence</text>
-<rect x="400" y="367" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,367.0 H622.5 a4,4 0 0 1 4,4 V378.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="380.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.877</text>
-<text x="24.0" y="408.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Type 2 diabetes</text>
-<rect x="400" y="396" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,396.0 H622.3 a4,4 0 0 1 4,4 V407.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="409.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.877</text>
-<text x="24.0" y="437.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Urinary tract infection</text>
-<rect x="400" y="425" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,425.0 H620.7 a4,4 0 0 1 4,4 V436.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="438.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.875</text>
-<text x="24.0" y="466.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Sleep apnoea</text>
-<rect x="400" y="454" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,454.0 H607.0 a4,4 0 0 1 4,4 V465.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="467.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.852</text>
-<text x="24.0" y="495.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">COPD</text>
-<rect x="400" y="483" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,483.0 H595.2 a4,4 0 0 1 4,4 V494.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="496.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.832</text>
-<text x="24.0" y="524.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Atrial fibrillation</text>
-<rect x="400" y="512" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,512.0 H594.6 a4,4 0 0 1 4,4 V523.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="525.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.831</text>
-<text x="24.0" y="553.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Smoker</text>
-<rect x="400" y="541" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,541.0 H581.6 a4,4 0 0 1 4,4 V552.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="554.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.809</text>
-<text x="24.0" y="582.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Anaemia</text>
-<rect x="400" y="570" width="300" height="15" fill="#eceae5" rx="4"/>
-<path d="M400.0,570.0 H520.1 a4,4 0 0 1 4,4 V581.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="583.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b" text-anchor="start">0.707</text>
-<text x="24.0" y="623.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11.5" font-weight="400" fill="#84837d" text-anchor="start">0.50 is a coin flip; 1.00 is perfect. Every condition uses the same automatic clue-removal, so these are comparable to each other.</text>
-<text x="24.0" y="659.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: results/target_comparison.csv · ROC-AUC on held-out data</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 452" width="860" height="452" role="img" aria-label="How much better than guessing, for each condition?">
+<rect x="0.5" y="0.5" width="859" height="451" rx="10" fill="#fcfcfb" stroke="#e4e3df"/>
+<text x="24.0" y="34.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" text-anchor="start">How much better than guessing, for each condition?</text>
+<text x="24.0" y="55.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Same model and same rules throughout. 1x would mean no better than chance.</text>
+<rect x="24" y="78" width="11" height="11" rx="3" fill="#eb6834"/>
+<text x="42.0" y="88.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start">Clearest to explain</text>
+<text x="24.0" y="125.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">Severe sepsis with septic shock</text>
+<text x="24.0" y="140.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">1.8% of patients have it</text>
+<rect x="400" y="113" width="300" height="18" fill="#eceae5" rx="4"/>
+<path d="M400.0,113.0 H681.7 a4,4 0 0 1 4,4 V127.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#eb6834"/>
+<text x="712.0" y="127.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">21x</text>
+<text x="24.0" y="163.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">On kidney dialysis</text>
+<text x="24.0" y="178.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">2.3% of patients have it</text>
+<rect x="400" y="151" width="300" height="18" fill="#eceae5" rx="4"/>
+<path d="M400.0,151.0 H607.5 a4,4 0 0 1 4,4 V165.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="165.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">16x</text>
+<text x="24.0" y="201.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">Heart failure</text>
+<text x="24.0" y="216.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">2.9% of patients have it</text>
+<rect x="400" y="189" width="300" height="18" fill="#eceae5" rx="4"/>
+<path d="M400.0,189.0 H470.0 a4,4 0 0 1 4,4 V203.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="203.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">5x</text>
+<text x="24.0" y="239.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">Sleep apnoea</text>
+<text x="24.0" y="254.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">6.7% of patients have it</text>
+<rect x="400" y="227" width="300" height="18" fill="#eceae5" rx="4"/>
+<path d="M400.0,227.0 H465.2 a4,4 0 0 1 4,4 V241.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="241.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">5x</text>
+<text x="24.0" y="277.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">Type 2 diabetes</text>
+<text x="24.0" y="292.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">8.1% of patients have it</text>
+<rect x="400" y="265" width="300" height="18" fill="#eceae5" rx="4"/>
+<path d="M400.0,265.0 H464.7 a4,4 0 0 1 4,4 V279.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="279.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">5x</text>
+<text x="24.0" y="315.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">Smoker</text>
+<text x="24.0" y="330.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">11.2% of patients have it</text>
+<rect x="400" y="303" width="300" height="18" fill="#eceae5" rx="4"/>
+<path d="M400.0,303.0 H439.1 a4,4 0 0 1 4,4 V317.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="317.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">3x</text>
+<text x="24.0" y="353.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">Anaemia</text>
+<text x="24.0" y="368.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">7.6% of patients have it</text>
+<rect x="400" y="341" width="300" height="18" fill="#eceae5" rx="4"/>
+<path d="M400.0,341.0 H422.3 a4,4 0 0 1 4,4 V355.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="355.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">2x</text>
+<text x="24.0" y="400.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11.5" font-weight="400" fill="#84837d" text-anchor="start">Dialysis uses a stricter, condition-specific clue filter than the other six, so its number here is the conservative one.</text>
+<text x="24.0" y="436.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: results/target_comparison.csv · average precision against each condition's own chance floor</text>
 </svg>

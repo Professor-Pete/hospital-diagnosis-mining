@@ -1,124 +1,4 @@
 target,code,odds_ratio,description
-Z992,I1311,830.0868556593531,"Hyp hrt and chr kdny dis w/o hrt fail, w stg 5 chr kdny/ESRD"
-Z992,I120,526.630340452863,Hyp chr kidney disease w stage 5 chr kidney disease or ESRD
-Z992,N028,195.4795436377541,Recurrent and persistent hematuria w oth morphologic changes
-Z992,I132,127.94749970669793,Hyp hrt & chr kdny dis w hrt fail and w stg 5 chr kdny/ESRD
-Z992,Q612,48.39485074055817,"Polycystic kidney, adult type"
-Z992,T8612,44.52970616787159,Kidney transplant failure
-Z992,M3214,32.72737754791904,Glomerular disease in systemic lupus erythematosus
-Z992,I953,27.251818712394268,Hypotension of hemodialysis
-Z9911,J0410,289.856860704862,Acute tracheitis without obstruction
-Z9911,J9610,213.3741357086876,"Chronic respiratory failure, unsp w hypoxia or hypercapnia"
-Z9911,J386,154.6773590533604,Stenosis of larynx
-Z9911,J9620,101.23576847181198,"Acute and chr resp failure, unsp w hypoxia or hypercapnia"
-Z9911,T794XXA,95.57202152879597,"Traumatic shock, initial encounter"
-Z9911,Y833,82.95615083829259,"Form of external stoma cause abn react/compl, w/o misadvnt"
-Z9911,J22,67.26687667962538,Unspecified acute lower respiratory infection
-Z9911,J9691,56.3186395223094,"Respiratory failure, unspecified with hypoxia"
-Z930,C329,343.10471069494884,"Malignant neoplasm of larynx, unspecified"
-Z930,J0410,177.1965676083266,Acute tracheitis without obstruction
-Z930,J386,152.79658034115917,Stenosis of larynx
-Z930,J3800,129.8130221140775,"Paralysis of vocal cords and larynx, unspecified"
-Z930,L89890,129.02317314071777,"Pressure ulcer of other site, unstageable"
-Z930,J9610,91.7929831560137,"Chronic respiratory failure, unsp w hypoxia or hypercapnia"
-Z930,P271,58.00505772683421,Bronchopulmonary dysplasia origin in the perinatal period
-Z930,J398,57.546655948228604,Other specified diseases of upper respiratory tract
-I509,I219,11.38231534577979,"Acute myocardial infarction, unspecified"
-I509,K5791,5.870665610334119,"Dvrtclos of intest, part unsp, w/o perf or abscess w bleed"
-I509,Y92099,5.297929063032831,Unsp place in oth non-institutional residence as place
-I509,I132,3.9033197538586855,Hyp hrt & chr kdny dis w hrt fail and w stg 5 chr kdny/ESRD
-I509,T461X5A,3.7636584845855956,"Adverse effect of calcium-channel blockers, init encntr"
-I509,I421,3.545552694159251,Obstructive hypertrophic cardiomyopathy
-I509,I059,3.4820735887926335,"Rheumatic mitral valve disease, unspecified"
-I509,J95851,3.4460279661734927,Ventilator associated pneumonia
-J449,O9952,42.20207995440528,Diseases of the respiratory system complicating childbirth
-J449,C3432,3.6142021198903134,"Malignant neoplasm of lower lobe, left bronchus or lung"
-J449,F17210,3.567039813328651,"Nicotine dependence, cigarettes, uncomplicated"
-J449,C3411,3.4415157635934785,"Malignant neoplasm of upper lobe, right bronchus or lung"
-J449,J9610,3.441501131686529,"Chronic respiratory failure, unsp w hypoxia or hypercapnia"
-J449,C3490,3.3889094560632818,Malignant neoplasm of unsp part of unsp bronchus or lung
-J449,F17200,3.3176573025076865,"Nicotine dependence, unspecified, uncomplicated"
-J449,C3412,3.195042696212026,"Malignant neoplasm of upper lobe, left bronchus or lung"
-E119,Z7984,11.657742290451578,Long term (current) use of oral hypoglycemic drugs
-E119,O660,4.419118603788261,Obstructed labor due to shoulder dystocia
-E119,Z794,4.347349619749278,Long term (current) use of insulin
-E119,I10,3.089406348566135,Essential (primary) hypertension
-E119,I119,2.6828105279530514,Hypertensive heart disease without heart failure
-E119,D120,2.602576028108618,Benign neoplasm of cecum
-E119,O99214,2.4982220266213573,Obesity complicating childbirth
-E119,I110,2.4223541826310573,Hypertensive heart disease with heart failure
-F17210,O99334,4457.211149868458,Smoking (tobacco) complicating childbirth
-F17210,O99333,192.73932964565589,"Smoking (tobacco) complicating pregnancy, third trimester"
-F17210,F3132,4.4871098060601025,"Bipolar disorder, current episode depressed, moderate"
-F17210,J441,3.9153429671443933,Chronic obstructive pulmonary disease w (acute) exacerbation
-F17210,J432,3.8784335328024793,Centrilobular emphysema
-F17210,I7409,3.826846759896565,Other arterial embolism and thrombosis of abdominal aorta
-F17210,J431,3.7971541097385435,Panlobular emphysema
-F17210,J439,3.695550204087041,"Emphysema, unspecified"
-G4733,Z9989,30.155284035531533,Dependence on other enabling machines and devices
-G4733,F88,6.83586561635737,Other disorders of psychological development
-G4733,E6601,6.742231192958052,Morbid (severe) obesity due to excess calories
-G4733,E291,4.447048340174692,Testicular hypofunction
-G4733,M1A9XX1,4.157581355126862,"Chronic gout, unspecified, with tophus (tophi)"
-G4733,I270,3.319136484254671,Primary pulmonary hypertension
-G4733,J986,3.266554493496063,Disorders of diaphragm
-G4733,E669,3.0643365579456407,"Obesity, unspecified"
-Z515,Z66,20.64756765828282,Do not resuscitate
-Z515,I5084,8.914897221400972,End stage heart failure
-Z515,R4020,7.9222747615702875,Unspecified coma
-Z515,G893,6.1398677050461545,Neoplasm related pain (acute) (chronic)
-Z515,G1221,5.271671521572477,Amyotrophic lateral sclerosis
-Z515,K7040,5.1442010735727255,Alcoholic hepatic failure without coma
-Z515,C169,4.763534438116513,"Malignant neoplasm of stomach, unspecified"
-Z515,E883,4.560411484919001,Tumor lysis syndrome
-F1120,O99324,726.4972732348429,Drug use complicating childbirth
-F1120,O99323,149.3895137171728,"Drug use complicating pregnancy, third trimester"
-F1120,G894,18.794946067789898,Chronic pain syndrome
-F1120,T8744,11.492686676779337,"Infection of amputation stump, left lower extremity"
-F1120,T401X1A,11.079225682029776,"Poisoning by heroin, accidental (unintentional), init encntr"
-F1120,D5700,10.394686799040377,"Hb-SS disease with crisis, unspecified"
-F1120,Z765,9.805977462836868,Malingerer [conscious simulation]
-F1120,B1920,9.377254628661424,Unspecified viral hepatitis C without hepatic coma
-D649,R031,4.289321968272769,Nonspecific low blood-pressure reading
-D649,N920,2.737085967575194,Excessive and frequent menstruation with regular cycle
-D649,E611,2.710930743790258,Iron deficiency
-D649,Z48812,2.5594288939160816,Encntr for surgical aftcr following surgery on the circ sys
-D649,D473,2.4813692100402824,Essential (hemorrhagic) thrombocythemia
-D649,D72819,2.4145575561429227,"Decreased white blood cell count, unspecified"
-D649,J851,2.3843213382031494,Abscess of lung with pneumonia
-D649,N131,2.371597965252708,"Hydronephrosis w ureteral stricture, NEC"
-I4891,I97191,15.74371272626909,Oth postproc cardiac functn disturb following oth surgery
-I4891,I97190,6.922638942423369,Oth postproc cardiac functn disturb fol cardiac surgery
-I4891,I9789,5.893699460778871,"Oth postproc comp and disorders of the circ sys, NEC"
-I4891,I5020,4.359766942353797,Unspecified systolic (congestive) heart failure
-I4891,Z7901,4.179233984925936,Long term (current) use of anticoagulants
-I4891,I5041,3.885449995995675,Acute combined systolic and diastolic (congestive) hrt fail
-I4891,I4430,3.6115936400303656,Unspecified atrioventricular block
-I4891,I5031,3.532251057143922,Acute diastolic (congestive) heart failure
-N390,B9620,22.528677865675913,Unsp Escherichia coli as the cause of diseases classd elswhr
-N390,B961,14.933174737541114,Klebsiella pneumoniae as the cause of diseases classd elswhr
-N390,B9629,11.854676198046525,Oth Escherichia coli as the cause of diseases classd elswhr
-N390,T83510A,9.706053888887325,"I/I react d/t cystostomy catheter, initial encounter"
-N390,B964,9.538846089077996,Proteus (mirabilis) (morganii) causing dis classd elswhr
-N390,A4151,8.555523969997084,Sepsis due to Escherichia coli [E. coli]
-N390,T83511A,7.637738385990172,"I/I react d/t indwelling urethral catheter, init"
-N390,B952,7.555974800332724,Enterococcus as the cause of diseases classified elsewhere
-Z66,Z515,21.959144630396363,Encounter for palliative care
-Z66,G3109,11.593293473772967,Other frontotemporal dementia
-Z66,G301,6.623347700078997,Alzheimer's disease with late onset
-Z66,G309,5.087688219482606,"Alzheimer's disease, unspecified"
-Z66,G3183,5.073479238199968,Dementia with Lewy bodies
-Z66,G9382,4.940543946780648,Brain death
-Z66,F0391,4.690343355435034,Unspecified dementia with behavioral disturbance
-Z66,I219,4.4167951134208066,"Acute myocardial infarction, unspecified"
-E669,Z6832,203.0774289677931,"Body mass index [BMI] 32.0-32.9, adult"
-E669,Z6830,196.59902500701443,"Body mass index [BMI]30.0-30.9, adult"
-E669,Z6831,176.84705363768714,"Body mass index [BMI] 31.0-31.9, adult"
-E669,Z6833,161.1886372939571,"Body mass index [BMI] 33.0-33.9, adult"
-E669,Z6834,158.53926681258145,"Body mass index [BMI] 34.0-34.9, adult"
-E669,Z6854,149.22426600242366,"Body mass index pediatric, > or equal to 95% for age"
-E669,Z6835,101.70629314489521,"Body mass index [BMI] 35.0-35.9, adult"
-E669,Z6836,88.17615140605527,"Body mass index [BMI] 36.0-36.9, adult"
 R6521,K650,22.3457665771713,Generalized (acute) peritonitis
 R6521,M726,17.478439038134173,Necrotizing fasciitis
 R6521,D65,14.089282382099071,Disseminated intravascular coagulation
@@ -127,3 +7,43 @@ R6521,J80,9.444818107672512,Acute respiratory distress syndrome
 R6521,K8309,9.277835269937878,Other cholangitis
 R6521,K631,7.818032245916472,Perforation of intestine (nontraumatic)
 R6521,N10,7.45726392939107,Acute pyelonephritis
+I509,I219,11.38231534577979,"Acute myocardial infarction, unspecified"
+I509,K5791,5.870665610334119,"Dvrtclos of intest, part unsp, w/o perf or abscess w bleed"
+I509,Y92099,5.297929063032831,Unsp place in oth non-institutional residence as place
+I509,I132,3.9033197538586855,Hyp hrt & chr kdny dis w hrt fail and w stg 5 chr kdny/ESRD
+I509,T461X5A,3.7636584845855956,"Adverse effect of calcium-channel blockers, init encntr"
+I509,I421,3.545552694159251,Obstructive hypertrophic cardiomyopathy
+I509,I059,3.4820735887926335,"Rheumatic mitral valve disease, unspecified"
+I509,J95851,3.4460279661734927,Ventilator associated pneumonia
+E119,Z7984,11.657742290451578,Long term (current) use of oral hypoglycemic drugs
+E119,O660,4.419118603788261,Obstructed labor due to shoulder dystocia
+E119,Z794,4.347349619749278,Long term (current) use of insulin
+E119,I10,3.089406348566135,Essential (primary) hypertension
+E119,I119,2.6828105279530514,Hypertensive heart disease without heart failure
+E119,D120,2.602576028108618,Benign neoplasm of cecum
+E119,O99214,2.4982220266213573,Obesity complicating childbirth
+E119,I110,2.4223541826310573,Hypertensive heart disease with heart failure
+G4733,Z9989,30.155284035531533,Dependence on other enabling machines and devices
+G4733,F88,6.83586561635737,Other disorders of psychological development
+G4733,E6601,6.742231192958052,Morbid (severe) obesity due to excess calories
+G4733,E291,4.447048340174692,Testicular hypofunction
+G4733,M1A9XX1,4.157581355126862,"Chronic gout, unspecified, with tophus (tophi)"
+G4733,I270,3.319136484254671,Primary pulmonary hypertension
+G4733,J986,3.266554493496063,Disorders of diaphragm
+G4733,E669,3.0643365579456407,"Obesity, unspecified"
+F17210,O99334,4457.211149868458,Smoking (tobacco) complicating childbirth
+F17210,O99333,192.73932964565589,"Smoking (tobacco) complicating pregnancy, third trimester"
+F17210,F3132,4.4871098060601025,"Bipolar disorder, current episode depressed, moderate"
+F17210,J441,3.9153429671443933,Chronic obstructive pulmonary disease w (acute) exacerbation
+F17210,J432,3.8784335328024793,Centrilobular emphysema
+F17210,I7409,3.826846759896565,Other arterial embolism and thrombosis of abdominal aorta
+F17210,J431,3.7971541097385435,Panlobular emphysema
+F17210,J439,3.695550204087041,"Emphysema, unspecified"
+D649,R031,4.289321968272769,Nonspecific low blood-pressure reading
+D649,N920,2.737085967575194,Excessive and frequent menstruation with regular cycle
+D649,E611,2.710930743790258,Iron deficiency
+D649,Z48812,2.5594288939160816,Encntr for surgical aftcr following surgery on the circ sys
+D649,D473,2.4813692100402824,Essential (hemorrhagic) thrombocythemia
+D649,D72819,2.4145575561429227,"Decreased white blood cell count, unspecified"
+D649,J851,2.3843213382031494,Abscess of lung with pneumonia
+D649,N131,2.371597965252708,"Hydronephrosis w ureteral stricture, NEC"

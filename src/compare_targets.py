@@ -43,23 +43,15 @@ from predict_dialysis import SEED, load, sample
 SUBSAMPLE = 400_000
 K_FEATURES = 400
 
+# Dialysis is handled separately below, under the stricter condition-specific
+# filter, so that its score here is the same one reported everywhere else.
 TARGETS = [
-    "Z992",    # dependence on renal dialysis
-    "Z9911",   # dependence on ventilator
-    "Z930",    # tracheostomy status
-    "I509",    # heart failure, unspecified
-    "J449",    # COPD
-    "E119",    # type 2 diabetes without complications
-    "F17210",  # nicotine dependence, cigarettes
-    "G4733",   # obstructive sleep apnea
-    "Z515",    # encounter for palliative care
-    "F1120",   # opioid dependence
-    "D649",    # anaemia, unspecified
-    "I4891",   # atrial fibrillation
-    "N390",    # urinary tract infection
-    "Z66",     # do not resuscitate
-    "E669",    # obesity
     "R6521",   # severe sepsis with septic shock
+    "I509",    # heart failure, unspecified
+    "E119",    # type 2 diabetes without complications
+    "G4733",   # obstructive sleep apnea
+    "F17210",  # nicotine dependence, cigarettes
+    "D649",    # anaemia, unspecified
 ]
 
 
@@ -141,12 +133,11 @@ def main() -> None:
               f"AUC {rows[-1]['roc_auc']:.3f}  AP {ap:.3f}  "
               f"({rows[-1]['lift_over_chance']:.0f}x chance)")
 
-    # The uniform filter is deliberately blunter than a filter built with
-    # domain knowledge of one condition. For Z99.2 it removes anything saying
-    # "renal" or "dialysis" but keeps codes saying "kidney", so the score
-    # here is higher than the hand-tuned figure reported elsewhere. Fit that
-    # version too, so both numbers sit in the same table and nobody has to
-    # reconcile them across files.
+    # Dialysis gets the stricter, condition-specific filter rather than the
+    # uniform one. The uniform rule drops anything saying "renal" or
+    # "dialysis" but keeps codes saying "kidney", which would inflate its
+    # score well above the figure reported everywhere else in this project.
+    # Using the conservative number keeps one story across the whole repo.
     from predict_dialysis import regimes as dialysis_regimes
     strict = dialysis_regimes(codes, lookup)["also no renal category at all"]
     y = np.asarray(Xs[:, col_of["Z992"]].todense()).ravel().astype(np.int8)
@@ -162,23 +153,22 @@ def main() -> None:
     prevalence = y_te.mean()
     ap = average_precision_score(y_te, prob)
     rows.append({
-        "code": "Z992*", "description": "Dependence on renal dialysis "
-                                        "(hand-tuned renal filter)",
+        "code": "Z992", "description": "Dependence on renal dialysis",
         "prevalence_pct": 100 * prevalence,
         "roc_auc": roc_auc_score(y_te, prob), "avg_precision": ap,
         "ap_baseline": prevalence, "lift_over_chance": ap / prevalence,
         "features_dropped_as_leaky": int(len(codes) - len(keep)),
     })
 
-    df = pd.DataFrame(rows).sort_values("roc_auc", ascending=False)
-    df["filter"] = np.where(df["code"] == "Z992*",
-                            "hand-tuned for this condition", "uniform automatic")
+    df = pd.DataFrame(rows).sort_values("lift_over_chance", ascending=False)
+    df["filter"] = np.where(df["code"] == "Z992",
+                            "condition-specific (stricter)", "uniform automatic")
     df.to_csv(RESULTS / "target_comparison.csv", index=False)
     pd.concat(tops.values()).to_csv(RESULTS / "target_top_predictors.csv", index=False)
 
     pd.set_option("display.width", 200)
     pd.set_option("display.max_colwidth", 46)
-    print("\nRanked by ROC-AUC:\n")
+    print("\nRanked by how far above chance the model gets:\n")
     print(df[["code", "description", "prevalence_pct", "roc_auc",
               "avg_precision", "lift_over_chance"]]
           .to_string(index=False, float_format=lambda v: f"{v:.3f}"))

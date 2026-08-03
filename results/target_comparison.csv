@@ -1,8 +1,7 @@
-code,description,prevalence_pct,roc_auc,avg_precision,ap_baseline,lift_over_chance,features_dropped_as_leaky,filter
-R6521,Severe sepsis with septic shock,1.7530000000000001,0.948925575202089,0.3691235937625074,0.01753,21.0566796213638,36601,uniform automatic
-Z992,Dependence on renal dialysis,2.34,0.945271489608987,0.3647483745755692,0.0234,15.587537375024324,36027,condition-specific (stricter)
-I509,"Heart failure, unspecified",2.91,0.8945448266195782,0.15860617652375394,0.0291,5.450384072981235,36002,uniform automatic
-G4733,Obstructive sleep apnea (adult) (pediatric),6.665,0.8517387001970936,0.3398680467577639,0.06665,5.09929552524777,35989,uniform automatic
-E119,Type 2 diabetes mellitus without complications,8.12,0.8771901860908746,0.4110492616669347,0.0812,5.0621830254548605,36003,uniform automatic
-F17210,"Nicotine dependence, cigarettes, uncomplicated",11.214,0.809301262097716,0.3564151724389055,0.11214,3.178305443542942,36600,uniform automatic
-D649,"Anemia, unspecified",7.5969999999999995,0.7068268649121033,0.14742158982110204,0.07597,1.940523757023852,35954,uniform automatic
+code,description,prevalence_pct,roc_auc,avg_precision,ap_baseline,lift_over_chance,features_dropped_as_leaky,filter,kind
+Z992,Dependence on renal dialysis (the treatment),2.34,0.945271489608987,0.3647483745755692,0.0234,15.587537375024324,36027,strict renal exclusion,treatment status
+N186,End stage renal disease (the disease),3.0,0.9419715481099656,0.4119291240213514,0.03,13.730970800711713,36027,strict renal exclusion,disease
+I509,"Heart failure, unspecified",2.91,0.8945448266195782,0.15860617652375394,0.0291,5.450384072981235,36002,uniform automatic,disease
+G4733,Obstructive sleep apnea (adult) (pediatric),6.665,0.8517387001970936,0.3398680467577639,0.06665,5.09929552524777,35989,uniform automatic,disease
+E119,Type 2 diabetes mellitus without complications,8.12,0.8771901860908746,0.4110492616669347,0.0812,5.0621830254548605,36003,uniform automatic,disease
+D649,"Anemia, unspecified",7.5969999999999995,0.7068268649121033,0.14742158982110204,0.07597,1.940523757023852,35954,uniform automatic,disease

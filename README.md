@@ -233,35 +233,52 @@ uses account for most of the rest. So the clean clinical story above is the
 the model is mostly drawing on a very large number of individually weak clues.
 Naming four groups and stopping there would have overstated how tidy it is.
 
-### Is dialysis the best condition to try this on?
+### A diagnosis, or a treatment?
 
-Not necessarily — so the same model was run against six other diagnoses, chosen
-to span easy and hard, common and rare.
+Worth pausing on what `Z99.2` actually is. It is **not a diagnosis** — it is a
+status code meaning "this patient receives dialysis". AHRQ classifies it as one
+that cannot be a principal diagnosis, because it isn't a thing you *have*, it's
+a thing being *done* for you. The disease is a separate code, `N18.6`,
+end-stage renal disease.
 
-![How much better than guessing, for each condition: severe sepsis 21x, dialysis 16x, heart failure 5x, sleep apnoea 5x, type 2 diabetes 5x, smoker 3x, anaemia 2x.](figures/06-targets.svg)
+That distinction explains something awkward earlier: dialysis needed a stricter,
+hand-built filter than anything else. A treatment-status code is assigned by an
+administrative process welded tightly to the disease coding, so the giveaways
+are more numerous and more entangled than for a condition a patient simply has.
 
-**Severe sepsis with septic shock is the better showcase.** It beats dialysis,
-and its explanation is far cleaner: the model spots it through severe infections
-(peritonitis, necrotising fasciitis, cholangitis) and the organ failures they
-trigger (blood-clotting collapse, respiratory failure). That is a *causal* story
-a clinician would recognise instantly. Dialysis dependence, by contrast, is an
-administrative status code — the model reaches it through the wreckage that
-surrounds it, which is interesting but indirect.
+So both were run — the disease and the treatment for it, side by side, each with
+every kidney-related code stripped out.
 
-**The bottom of the chart is as informative as the top.** Anaemia manages only
-twice chance. That is not a failure of the model; it is a fact about the
-condition. Anaemia turns up in almost every kind of patient for almost every
-reason, so the rest of the chart barely narrows it down. Severe sepsis and
-dialysis are predictable precisely because they leave a specific, systemic mark
-on everything else recorded. Being a smoker sits near the bottom for a different
-reason — it is a behaviour, not a physiological state, so the body does not
-necessarily show it.
+![How much better than guessing: dialysis 16x, end-stage kidney disease 14x, heart failure 5x, sleep apnoea 5x, type 2 diabetes 5x, anaemia 2x.](figures/06-targets.svg)
 
-Dialysis is shown here under the stricter, condition-specific clue filter, the
-same one behind the 16x above. The other six use the automatic filter, which is
-blunter. If dialysis were given that blunter treatment it would score about 32x,
-and the number would be worse — it would be counting kidney codes the automatic
-rule failed to spot as giveaways.
+**They score almost the same** — 16x for the treatment, 14x for the disease. Both
+are far ahead of everything else, which makes sense: kidney failure at this stage
+marks the whole body, so whichever code you aim at, the traces are the same.
+
+But the codes that *distinguish* them are the interesting part:
+
+- Predicting the **disease** leans on physiological consequences — fluid
+  overload, bone disorders, inflamed arteries.
+- Predicting the **treatment** leans partly on care-delivery codes instead —
+  pancreas transplant status, and, tellingly, *"procedure not carried out
+  because of patient belief and group pressure"*. That is a record of someone
+  declining treatment, which can only exist if there is a treatment to decline.
+
+So the model finds a disease through the damage it does, and finds a treatment
+partly through the paperwork that surrounds delivering it. Those are different
+questions wearing similar clothes, and it would be easy to report one as if it
+were the other.
+
+### The rest of the list
+
+The other four are all conditions a patient has, run under the automatic filter.
+
+**The bottom is as informative as the top.** Anaemia manages only twice chance.
+That is not a failure of the model, it is a fact about anaemia: it turns up in
+almost every kind of patient for almost every reason, so the rest of the chart
+barely narrows it down. Heart failure, diabetes and sleep apnoea sit together
+around 5x — real but unremarkable signatures. Kidney failure is predictable
+precisely because it is systemic in a way the others are not.
 
 ## What this cannot tell you
 
@@ -285,7 +302,7 @@ python src/hospital_concentration.py # is it clinical, or one hospital's habit?
 python src/triage_findings.py        # collapse to a reviewable shortlist
 python src/predict_dialysis.py       # the model, under three leakage regimes
 python src/feature_importance.py     # what carries the prediction
-python src/compare_targets.py        # the same model against six other diagnoses
+python src/compare_targets.py        # the same model against five other conditions
 python tools/make_figures.py         # regenerate the charts above
 ```
 

@@ -1,12 +1,4 @@
 target,code,odds_ratio,description
-R6521,K650,22.3457665771713,Generalized (acute) peritonitis
-R6521,M726,17.478439038134173,Necrotizing fasciitis
-R6521,D65,14.089282382099071,Disseminated intravascular coagulation
-R6521,D703,11.278743161803998,Neutropenia due to infection
-R6521,J80,9.444818107672512,Acute respiratory distress syndrome
-R6521,K8309,9.277835269937878,Other cholangitis
-R6521,K631,7.818032245916472,Perforation of intestine (nontraumatic)
-R6521,N10,7.45726392939107,Acute pyelonephritis
 I509,I219,11.38231534577979,"Acute myocardial infarction, unspecified"
 I509,K5791,5.870665610334119,"Dvrtclos of intest, part unsp, w/o perf or abscess w bleed"
 I509,Y92099,5.297929063032831,Unsp place in oth non-institutional residence as place
@@ -31,14 +23,6 @@ G4733,M1A9XX1,4.157581355126862,"Chronic gout, unspecified, with tophus (tophi)"
 G4733,I270,3.319136484254671,Primary pulmonary hypertension
 G4733,J986,3.266554493496063,Disorders of diaphragm
 G4733,E669,3.0643365579456407,"Obesity, unspecified"
-F17210,O99334,4457.211149868458,Smoking (tobacco) complicating childbirth
-F17210,O99333,192.73932964565589,"Smoking (tobacco) complicating pregnancy, third trimester"
-F17210,F3132,4.4871098060601025,"Bipolar disorder, current episode depressed, moderate"
-F17210,J441,3.9153429671443933,Chronic obstructive pulmonary disease w (acute) exacerbation
-F17210,J432,3.8784335328024793,Centrilobular emphysema
-F17210,I7409,3.826846759896565,Other arterial embolism and thrombosis of abdominal aorta
-F17210,J431,3.7971541097385435,Panlobular emphysema
-F17210,J439,3.695550204087041,"Emphysema, unspecified"
 D649,R031,4.289321968272769,Nonspecific low blood-pressure reading
 D649,N920,2.737085967575194,Excessive and frequent menstruation with regular cycle
 D649,E611,2.710930743790258,Iron deficiency
@@ -47,3 +31,19 @@ D649,D473,2.4813692100402824,Essential (hemorrhagic) thrombocythemia
 D649,D72819,2.4145575561429227,"Decreased white blood cell count, unspecified"
 D649,J851,2.3843213382031494,Abscess of lung with pneumonia
 D649,N131,2.371597965252708,"Hydronephrosis w ureteral stricture, NEC"
+N186,Z7682,26.430371040015906,Awaiting organ transplant status
+N186,T82838A,24.98569094520727,"Hemorrhage due to vascular prosth dev/grft, init"
+N186,M898X9,18.597361165692238,"Other specified disorders of bone, unspecified site"
+N186,M899,15.075977887956034,"Disorder of bone, unspecified"
+N186,E8359,13.79931511212301,Other disorders of calcium metabolism
+N186,I776,11.890183458758685,"Arteritis, unspecified"
+N186,E8779,11.406983749702091,Other fluid overload
+N186,T827XXA,9.790433222607536,"Infect/inflm react d/t oth cardi/vasc dev/implnt/grft, init"
+Z992,T82838A,28.155386517414495,"Hemorrhage due to vascular prosth dev/grft, init"
+Z992,Z9483,22.634776350907735,Pancreas transplant status
+Z992,E8889,17.155472602713076,Other specified metabolic disorders
+Z992,M898X9,16.865292953369334,"Other specified disorders of bone, unspecified site"
+Z992,E8359,16.256642568485134,Other disorders of calcium metabolism
+Z992,Z7682,15.055171838265963,Awaiting organ transplant status
+Z992,Z531,11.707337051563439,Proc/trtmt not crd out bec pt belief and group pressure
+Z992,T827XXA,11.478592025944092,"Infect/inflm react d/t oth cardi/vasc dev/implnt/grft, init"

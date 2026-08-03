@@ -43,16 +43,24 @@ from predict_dialysis import SEED, load, sample
 SUBSAMPLE = 400_000
 K_FEATURES = 400
 
-# Dialysis is handled separately below, under the stricter condition-specific
-# filter, so that its score here is the same one reported everywhere else.
+# Conditions a patient *has*. AHRQ gives each of these a real clinical CCSR
+# category, meaning it can stand alone as a reason for admission.
 TARGETS = [
-    "R6521",   # severe sepsis with septic shock
     "I509",    # heart failure, unspecified
     "E119",    # type 2 diabetes without complications
     "G4733",   # obstructive sleep apnea
-    "F17210",  # nicotine dependence, cigarettes
     "D649",    # anaemia, unspecified
 ]
+
+# The renal pair, run separately. N18.6 is the disease; Z99.2 is the treatment
+# for it — a status code, not a diagnosis. Both get the same strict renal
+# exclusion (every kidney-related CCSR category, plus any code whose
+# description names the organ) rather than the uniform automatic filter, so
+# the disease-versus-treatment comparison between them is like for like.
+RENAL_TARGETS = {
+    "N186": "End stage renal disease (the disease)",
+    "Z992": "Dependence on renal dialysis (the treatment)",
+}
 
 
 def leak_filter(target: str, codes: np.ndarray, lookup: pd.DataFrame) -> np.ndarray:
@@ -133,36 +141,47 @@ def main() -> None:
               f"AUC {rows[-1]['roc_auc']:.3f}  AP {ap:.3f}  "
               f"({rows[-1]['lift_over_chance']:.0f}x chance)")
 
-    # Dialysis gets the stricter, condition-specific filter rather than the
-    # uniform one. The uniform rule drops anything saying "renal" or
-    # "dialysis" but keeps codes saying "kidney", which would inflate its
-    # score well above the figure reported everywhere else in this project.
-    # Using the conservative number keeps one story across the whole repo.
     from predict_dialysis import regimes as dialysis_regimes
     strict = dialysis_regimes(codes, lookup)["also no renal category at all"]
-    y = np.asarray(Xs[:, col_of["Z992"]].todense()).ravel().astype(np.int8)
-    keep = np.flatnonzero(strict & common)
-    X_tr, X_te, y_tr, y_te = train_test_split(
-        Xs[:, keep], y, test_size=0.25, random_state=SEED, stratify=y
-    )
-    m = Pipeline([
-        ("select", SelectKBest(score_func=f_classif, k=min(K_FEATURES, len(keep)))),
-        ("clf", LogisticRegression(max_iter=2000, class_weight="balanced", C=1.0)),
-    ]).fit(X_tr, y_tr)
-    prob = m.predict_proba(X_te)[:, 1]
-    prevalence = y_te.mean()
-    ap = average_precision_score(y_te, prob)
-    rows.append({
-        "code": "Z992", "description": "Dependence on renal dialysis",
-        "prevalence_pct": 100 * prevalence,
-        "roc_auc": roc_auc_score(y_te, prob), "avg_precision": ap,
-        "ap_baseline": prevalence, "lift_over_chance": ap / prevalence,
-        "features_dropped_as_leaky": int(len(codes) - len(keep)),
-    })
+
+    for target, label in RENAL_TARGETS.items():
+        y = np.asarray(Xs[:, col_of[target]].todense()).ravel().astype(np.int8)
+        # `strict` was built to exclude renal codes for Z99.2; N18.6 is itself
+        # a renal code, so drop it explicitly as well.
+        keep = np.flatnonzero(strict & common & (codes != target))
+        Xr, names = Xs[:, keep], codes[keep]
+        X_tr, X_te, y_tr, y_te = train_test_split(
+            Xr, y, test_size=0.25, random_state=SEED, stratify=y
+        )
+        model = Pipeline([
+            ("select", SelectKBest(score_func=f_classif, k=min(K_FEATURES, len(keep)))),
+            ("clf", LogisticRegression(max_iter=2000, class_weight="balanced", C=1.0)),
+        ]).fit(X_tr, y_tr)
+        prob = model.predict_proba(X_te)[:, 1]
+        prevalence = y_te.mean()
+        ap = average_precision_score(y_te, prob)
+        rows.append({
+            "code": target, "description": label,
+            "prevalence_pct": 100 * prevalence,
+            "roc_auc": roc_auc_score(y_te, prob), "avg_precision": ap,
+            "ap_baseline": prevalence, "lift_over_chance": ap / prevalence,
+            "features_dropped_as_leaky": int(len(codes) - len(keep)),
+        })
+
+        sel, clf = model.named_steps["select"], model.named_steps["clf"]
+        chosen = names[sel.get_support()]
+        tops[target] = pd.DataFrame({
+            "target": target, "code": chosen,
+            "odds_ratio": np.exp(clf.coef_.ravel()),
+            "description": [lookup["description"].get(c, "?") for c in chosen],
+        }).nlargest(8, "odds_ratio")
+        print(f"  {target:<7} {label[:44]:<46} AUC {rows[-1]['roc_auc']:.3f}  "
+              f"AP {ap:.3f}  ({rows[-1]['lift_over_chance']:.0f}x chance)")
 
     df = pd.DataFrame(rows).sort_values("lift_over_chance", ascending=False)
-    df["filter"] = np.where(df["code"] == "Z992",
-                            "condition-specific (stricter)", "uniform automatic")
+    df["filter"] = np.where(df["code"].isin(RENAL_TARGETS),
+                            "strict renal exclusion", "uniform automatic")
+    df["kind"] = np.where(df["code"] == "Z992", "treatment status", "disease")
     df.to_csv(RESULTS / "target_comparison.csv", index=False)
     pd.concat(tops.values()).to_csv(RESULTS / "target_top_predictors.csv", index=False)
 

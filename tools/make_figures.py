@@ -280,12 +280,11 @@ def fig_importance() -> str:
 
 
 TARGET_PLAIN = {
-    "Z992": "On kidney dialysis",
-    "R6521": "Severe sepsis with septic shock",
+    "Z992": "Being treated with kidney dialysis",
+    "N186": "Having end-stage kidney disease",
     "I509": "Heart failure",
     "E119": "Type 2 diabetes",
     "G4733": "Sleep apnoea",
-    "F17210": "Smoker",
     "D649": "Anaemia",
 }
 
@@ -294,35 +293,38 @@ def fig_targets() -> str:
     df = pd.read_csv(RESULTS / "target_comparison.csv").sort_values(
         "lift_over_chance", ascending=False)
 
-    w, top, row = 860, 110, 38
+    w, top, row = 860, 116, 38
     h = top + row * len(df) + 76
     x0, bar_w = 400, 300
     vmax = float(df["lift_over_chance"].max()) * 1.05
 
     parts = [
-        f'<rect x="24" y="78" width="11" height="11" rx="3" fill="{ORANGE}"/>',
-        text(42, 88, "Clearest to explain", 12, INK_2),
+        f'<rect x="24" y="82" width="11" height="11" rx="3" fill="{BLUE}"/>',
+        text(42, 92, "A condition the patient has", 12, INK_2),
+        f'<rect x="256" y="82" width="11" height="11" rx="3" fill="{ORANGE}"/>',
+        text(274, 92, "A treatment they receive", 12, INK_2),
     ]
     for i, (_, r) in enumerate(df.iterrows()):
         y = top + i * row
         label = TARGET_PLAIN.get(r["code"], r["description"][:38])
-        colour = ORANGE if r["code"] == "R6521" else BLUE
+        is_treatment = r.get("kind") == "treatment status"
         parts.append(text(24, y + 15, label, 13, INK_2))
-        parts.append(text(24, y + 30, f'{r["prevalence_pct"]:.1f}% of patients have it',
+        parts.append(text(24, y + 30, f'{r["prevalence_pct"]:.1f}% of patients',
                           10.5, INK_3))
         parts.append(f'<rect x="{x0}" y="{y + 3}" width="{bar_w}" height="18" fill="{GRID}" rx="4"/>')
-        parts.append(bar(x0, y + 3, bar_w * r["lift_over_chance"] / vmax, 18, colour))
+        parts.append(bar(x0, y + 3, bar_w * r["lift_over_chance"] / vmax, 18,
+                         ORANGE if is_treatment else BLUE))
         parts.append(text(x0 + bar_w + 12, y + 17, f'{r["lift_over_chance"]:.0f}x', 14,
                           INK, weight=600))
 
     parts.append(text(24, top + row * len(df) + 24,
-                      "Dialysis uses a stricter, condition-specific clue filter than the other "
-                      "six, so its number here is the conservative one.", 11.5, INK_3))
+                      "The top two are the same organ: the disease, and the treatment for it. "
+                      "Both had every kidney code removed first.", 11.5, INK_3))
 
     return frame(
         w, h,
         "How much better than guessing, for each condition?",
-        "Same model and same rules throughout. 1x would mean no better than chance.",
+        "1x would mean no better than chance. Same model throughout.",
         "\n".join(parts),
         "Source: results/target_comparison.csv · average precision against each condition's own chance floor",
     )

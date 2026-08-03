@@ -1,39 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 404" width="860" height="404" role="img" aria-label="Which parts of the chart carry the prediction?">
-<rect x="0.5" y="0.5" width="859" height="403" rx="10" fill="#fcfcfb" stroke="#e4e3df"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 370" width="860" height="370" role="img" aria-label="Which parts of the chart carry the prediction?">
+<rect x="0.5" y="0.5" width="859" height="369" rx="10" fill="#fcfcfb" stroke="#e4e3df"/>
 <text x="24.0" y="34.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" text-anchor="start">Which parts of the chart carry the prediction?</text>
 <text x="24.0" y="55.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">How far the model's score falls when each group of codes is scrambled.</text>
 <text x="24.0" y="119.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Blood chemistry the kidney can't control</text>
 <text x="24.0" y="133.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">3 codes</text>
 <rect x="400" y="107" width="300" height="17" fill="#eceae5" rx="4"/>
-<path d="M400.0,107.0 H614.6 a4,4 0 0 1 4,4 V120.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="121.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">7.3%</text>
+<path d="M400.0,107.0 H659.6 a4,4 0 0 1 4,4 V120.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="121.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">8.8%</text>
 <text x="24.0" y="153.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Fluid the kidney can't remove</text>
 <text x="24.0" y="167.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">3 codes</text>
 <rect x="400" y="141" width="300" height="17" fill="#eceae5" rx="4"/>
-<path d="M400.0,141.0 H585.2 a4,4 0 0 1 4,4 V154.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="155.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">6.3%</text>
-<text x="24.0" y="187.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Failures of the dialysis access port</text>
-<text x="24.0" y="201.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">5 codes</text>
+<path d="M400.0,141.0 H617.0 a4,4 0 0 1 4,4 V154.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="155.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">7.4%</text>
+<text x="24.0" y="187.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Bone and mineral chemistry</text>
+<text x="24.0" y="201.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">8 codes</text>
 <rect x="400" y="175" width="300" height="17" fill="#eceae5" rx="4"/>
-<path d="M400.0,175.0 H580.3 a4,4 0 0 1 4,4 V188.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="189.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">6.1%</text>
-<text x="24.0" y="221.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Bone and mineral chemistry</text>
-<text x="24.0" y="235.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">8 codes</text>
+<path d="M400.0,175.0 H518.9 a4,4 0 0 1 4,4 V188.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="189.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">4.1%</text>
+<text x="24.0" y="221.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">On the transplant pathway</text>
+<text x="24.0" y="235.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">2 codes</text>
 <rect x="400" y="209" width="300" height="17" fill="#eceae5" rx="4"/>
-<path d="M400.0,209.0 H505.5 a4,4 0 0 1 4,4 V222.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="223.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">3.6%</text>
-<text x="24.0" y="255.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">On the transplant pathway</text>
+<path d="M400.0,209.0 H419.0 a4,4 0 0 1 4,4 V222.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="223.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">0.8%</text>
+<text x="24.0" y="255.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Other systemic damage</text>
 <text x="24.0" y="269.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">3 codes</text>
 <rect x="400" y="243" width="300" height="17" fill="#eceae5" rx="4"/>
-<path d="M400.0,243.0 H431.0 a4,4 0 0 1 4,4 V256.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="257.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">1.2%</text>
-<text x="24.0" y="289.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">Other systemic damage</text>
-<text x="24.0" y="303.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="10.5" font-weight="400" fill="#84837d" text-anchor="start">3 codes</text>
-<rect x="400" y="277" width="300" height="17" fill="#eceae5" rx="4"/>
-<path d="M400.0,277.0 H402.7 a4,4 0 0 1 4,4 V290.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
-<text x="712.0" y="291.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">0.2%</text>
-<line x1="24" y1="322" x2="836" y2="322" stroke="#e4e3df"/>
-<text x="24.0" y="344.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start">All 25 of these codes together: 34% of the score. The other 3,560 codes the model uses: 88%.</text>
-<text x="24.0" y="362.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">The two overlap and do not sum — this measures each group's contribution separately, not a split of a whole.</text>
-<text x="24.0" y="388.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: src/feature_importance.py · grouped permutation importance, held-out data, 5 repeats</text>
+<path d="M400.0,243.0 H406.6 a4,4 0 0 1 4,4 V256.0 a4,4 0 0 1 -4,4 H400.0 Z" fill="#2a78d6"/>
+<text x="712.0" y="257.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="600" fill="#0b0b0b" text-anchor="start">0.4%</text>
+<line x1="24" y1="288" x2="836" y2="288" stroke="#e4e3df"/>
+<text x="24.0" y="310.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#52514e" text-anchor="start">All 19 of these codes together: 27% of the score. The other 3,528 codes the model uses: 89%.</text>
+<text x="24.0" y="328.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">The two overlap and do not sum — this measures each group's contribution separately, not a split of a whole.</text>
+<text x="24.0" y="354.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: src/feature_importance.py · grouped permutation importance, held-out data, 5 repeats</text>
 </svg>

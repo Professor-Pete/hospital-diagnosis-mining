@@ -182,7 +182,7 @@ def fig_model() -> str:
     parts = []
     for i, (lab, val, col) in enumerate([
         ("Guessing at random", ap_base, GRAY),
-        ("The model, with every kidney code removed", ap_strict, BLUE),
+        ("The model, kidney and dialysis hardware removed", ap_strict, BLUE),
     ]):
         y = 96 + i * 40
         parts.append(text(24, y + 18, lab, 13, INK_2))
@@ -190,8 +190,8 @@ def fig_model() -> str:
         parts.append(bar(left, y + 4, bw * val / 100, 20, col))
         parts.append(text(left + bw + 12, y + 19, f"{val:.0f}%", 14, INK, weight=600))
 
-    parts.append(text(24, 196, f"{ap_strict / ap_base:.0f} times better than chance — without ever "
-                               "being shown a kidney diagnosis.", 12, INK_3))
+    parts.append(text(24, 196, f"{ap_strict / ap_base:.0f} times better than chance — with no kidney code "
+                               "and no dialysis hardware to go on.", 12, INK_3))
 
     return frame(
         w, h,
@@ -312,8 +312,8 @@ def fig_targets() -> str:
                           INK, weight=600))
 
     parts.append(text(24, top + row * len(df) + 26,
-                      "Kidney disease had every kidney code removed first; the other four "
-                      "use the same automatic clue filter.", 11.5, INK_3))
+                      "Kidney disease had every kidney code and every dialysis-hardware code "
+                      "removed first; the other four use the automatic clue filter.", 11.5, INK_3))
 
     return frame(
         w, h,

@@ -19,7 +19,9 @@ the drop between them measures how much of the performance was circular:
 1. every code except the target;
 2. minus anything naming dialysis, ESRD or chronic kidney disease, and the
    codes the coding rules force to appear alongside it;
-3. minus every renal code at all.
+3. minus every renal code, every implanted cardiac/vascular device
+   complication, and the external-cause codes describing the same events —
+   the categories dialysis access failures land in.
 
 Two other things this gets right, because a relatively rare outcome punishes
 getting them wrong:
@@ -100,6 +102,23 @@ RENAL_CCSR = frozenset({
 # "Glomerular disease in SLE", which sit in non-renal CCSR categories.
 RENAL_TEXT = r"kidney|renal|nephr|glomerul|dialysis"
 
+# Complications of implanted cardiac and vascular hardware (T82). Dialysis
+# runs through a surgically created fistula or graft, and when it clots,
+# bleeds, narrows or gets infected it is coded here — in a *cardiovascular*
+# category, so neither the renal CCSR list nor the text rule catches it.
+#
+# Only 7 of the 163 T82 codes present name dialysis outright; the rest are
+# generic "vascular prosthetic device" complications that could equally be a
+# heart valve. Since the code alone cannot distinguish them, the whole family
+# goes. That discards some legitimate cardiac signal, which is the right
+# trade: it can only lower the score, never inflate it.
+#
+# Y70-Y84 are the same events written from the other side: the external-cause
+# codes for a device or a procedure causing a complication. Dropping T82 while
+# leaving "anastomosis, bypass or graft as cause of abnormal reaction" in place
+# would be incoherent — creating an AV fistula *is* an anastomosis.
+DEVICE_PREFIX = ("T82", "Y7", "Y83", "Y84")
+
 
 def regimes(codes: np.ndarray, lookup: pd.DataFrame) -> dict[str, np.ndarray]:
     """Boolean keep-masks over the code vocabulary, loosest to strictest."""
@@ -123,14 +142,15 @@ def regimes(codes: np.ndarray, lookup: pd.DataFrame) -> dict[str, np.ndarray]:
         pd.Series(ccsr, index=idx).isin(RENAL_CCSR).to_numpy()
         | desc.str.contains(RENAL_TEXT, regex=True, na=False).to_numpy()
     )
+    device = np.asarray(idx.str.startswith(DEVICE_PREFIX))
 
     naive = ~is_target
     deleaked = naive & ~names_dialysis & ~coding_rule
-    strict = deleaked & ~renal_cat
+    strict = deleaked & ~renal_cat & ~device
     return {
         "all codes available": naive,
         "no dialysis/CKD-definitional codes": deleaked,
-        "also no renal category at all": strict,
+        "also no renal codes or dialysis hardware": strict,
     }
 
 
@@ -275,9 +295,9 @@ def main() -> None:
     out.to_csv(RESULTS / "esrd_model_comparison.csv", index=False)
     print(out.to_string(index=False, float_format=lambda v: f"{v:.4f}"))
 
-    top = coef_tables["also no renal category at all"].head(20)
+    top = coef_tables["also no renal codes or dialysis hardware"].head(20)
     top.to_csv(RESULTS / "esrd_top_predictors_deleaked.csv", index=False)
-    print("\nStrongest predictors once every renal/dialysis code is removed:")
+    print("\nStrongest predictors once renal codes and dialysis hardware are gone:")
     print(top.to_string(index=False, max_colwidth=60))
 
 

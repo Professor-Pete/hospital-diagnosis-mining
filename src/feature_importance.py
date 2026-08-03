@@ -33,7 +33,7 @@ from config import RESULTS
 from predict_esrd import SEED, TARGET, load, regimes, sample
 
 N_REPEATS = 5
-STRICT = "also no renal category at all"
+STRICT = "also no renal codes or dialysis hardware"
 
 # The clinical story each surviving predictor belongs to. Grouping is by what
 # the condition *is*, not by ICD chapter — the vascular-access codes sit in
@@ -45,10 +45,9 @@ GROUPS = {
     "Bone & mineral chemistry": [
         "E839", "E8359", "E213", "E211", "E892", "M898X9", "M899", "E8351",
     ],
-    "Vascular access failure": [
-        "T82838A", "T827XXA", "T82868A", "T82898A", "T82858A", "T82848A",
-        "T8249XA", "T82898D",
-    ],
+    # No vascular-access group: every T82 device-complication code, and the
+    # external-cause codes for the same events, are now excluded as leakage
+    # before the model is fit. Nothing is left here to measure.
     "Fluid overload": ["E8770", "E8779", "E877", "J810"],
     "Transplant pathway": ["Z7682", "Z9483", "Y830", "Z940", "Z948"],
     "Other systemic": ["E8889", "I776", "E859"],

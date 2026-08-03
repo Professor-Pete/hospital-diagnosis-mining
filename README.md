@@ -167,21 +167,24 @@ have car insurance. This is called **target leakage**, and it is the most common
 way a medical prediction model produces a number that falls apart in the real
 world.
 
-So every kidney- and dialysis-related code was removed, and the model was fit
-again from scratch.
+So every kidney- and dialysis-related code was removed — and so was every
+complication of implanted vascular hardware, because dialysis runs through a
+surgically created connection into a blood vessel and those complications are
+filed under *cardiovascular* devices where no kidney filter would find them.
+Then the model was fit again from scratch.
 
-![Spotting failed kidneys with every kidney clue taken away: 46% versus 3% for random guessing, 15 times better than chance.](figures/03-model.svg)
+![Spotting failed kidneys with every kidney clue taken away: 43% versus 3% for random guessing, 14 times better than chance.](figures/03-model.svg)
 
-**This is the result worth reporting.** With no kidney or dialysis reference of
-any kind available, the model still finds these patients roughly 15 times better
-than chance. It does it by recognising the body-wide damage that kidney failure
-causes.
+**This is the result worth reporting.** With no kidney reference and no
+dialysis hardware to go on, the model still finds these patients roughly 14
+times better than chance. It does it by recognising the body-wide damage that
+kidney failure causes.
 
-### What "46%" actually means
+### What "43%" actually means
 
-It does **not** mean the model is right 46% of the time. The model never gives a
+It does **not** mean the model is right 43% of the time. The model never gives a
 yes-or-no answer at all. It scores every patient and puts them in order, most
-likely to least likely, and the 46% measures how good that ordering is.
+likely to least likely, and the 43% measures how good that ordering is.
 
 Here is the same thing without any statistics. The held-out set has 150,000
 patients, of whom about 1 in 33 have end-stage kidney disease. Pick 1,000 of
@@ -190,21 +193,21 @@ them:
 | Take 1,000 patients… | How many really have failed kidneys |
 |---|---|
 | picked at random | about **30** |
-| the 1,000 the model ranks highest | **712** |
+| the 1,000 the model ranks highest | **677** |
 
 Same pool, same 1,000 people pulled out of it. That gap is what the model is
 worth.
 
-The 46% is that hit rate averaged over the whole ranking rather than just the
-top 1,000. It runs at 90% among the top 100, 71% by the top 1,000, and 44.5% by
+The 43% is that hit rate averaged over the whole ranking rather than just the
+top 1,000. It runs at 85% among the top 100, 68% by the top 1,000, and 42.7% by
 the top 5,000, falling as you dig deeper to scrape up the last few patients.
 Guessing at random scores 3% at *every* depth, because any random handful of
-patients is 3% kidney failure. 46 ÷ 3 ≈ **15 times better than chance**, and
+patients is 3% kidney failure. 43 ÷ 3 ≈ **14 times better than chance**, and
 every figure below uses that same framing so the numbers can be compared to one
 another.
 
 Where you would actually draw the line — flag the top 100? the top 5,000? — is a
-separate decision, trading false alarms against missed patients. The 46% is
+separate decision, trading false alarms against missed patients. The 43% is
 deliberately independent of that choice.
 
 ### How much does each part of that damage actually contribute?
@@ -216,32 +219,35 @@ group is **scrambled**: its values are shuffled across patients, destroying that
 group's link to the outcome while leaving everything else alone, and the drop in
 the model's score is measured.
 
-![Which parts of the chart carry the prediction: blood chemistry 7.3%, fluid 6.3%, dialysis access failures 6.1%, bone and mineral chemistry 3.6%.](figures/05-importance.svg)
+![Which parts of the chart carry the prediction: blood chemistry 8.8%, fluid 7.4%, bone and mineral chemistry 4.1%.](figures/05-importance.svg)
 
-- **Blood chemistry the kidney can't control (7.3%)** — potassium and acid
+- **Blood chemistry the kidney can't control (8.8%)** — potassium and acid
   building up in the blood. The largest named signal, and the most direct: it is
   the thing that makes kidney failure an emergency.
-- **Fluid the kidney can't remove (6.3%)** — water that has nowhere to go.
-- **Failures of the dialysis access port (6.1%)** — treating this disease needs
-  a permanent surgical connection into a blood vessel, and those bleed, clot,
-  narrow, and get infected. The model picks up all four.
-- **Bone and mineral chemistry (3.6%)** — failing kidneys stop regulating
+- **Fluid the kidney can't remove (7.4%)** — water that has nowhere to go.
+- **Bone and mineral chemistry (4.1%)** — failing kidneys stop regulating
   calcium and phosphate, and the skeleton pays for it.
 
-**Two honest caveats.** First, those 25 codes together account for about a third
-of the model's score; the remaining ~3,560 codes it uses account for most of the
-rest. The clean clinical story above is the *strongest and most interpretable*
-part of the signal, not the whole of it. Second, the access-port codes are
-dialysis hardware — they sit in a *cardiovascular* device category rather than a
-renal one, so a category-based filter never caught them. Some residual leakage
-survives, and claiming a perfectly clean model would be overstating it.
+**Two honest caveats.** First, those 19 codes together account for about a
+quarter of the model's score; the remaining ~3,530 codes it uses account for
+most of the rest. The clean clinical story above is the *strongest and most
+interpretable* part of the signal, not the whole of it.
+
+Second, **removing leakage is whack-a-mole.** Taking out the dialysis hardware
+did not end it — two codes promptly rose up the list that are also really about
+dialysis: *peritonitis* (the signature complication of the abdominal form of
+dialysis) and *clotting of the jugular vein* (where a dialysis catheter goes).
+Those were left in, because unlike a device-complication code they are genuine
+conditions a patient can have for other reasons, and removing them would start
+deleting real disease. The honest position is that a perfectly clean model is
+not achievable here, only a progressively less dirty one.
 
 ### Is kidney failure unusually easy to predict?
 
 Yes, and by a wide margin. The same model was run against four other conditions
 patients actually have, using the same rules for stripping giveaway codes.
 
-![How much better than guessing: end-stage kidney disease 15x, heart failure 6x, sleep apnoea 5x, type 2 diabetes 5x, anaemia 2x.](figures/06-targets.svg)
+![How much better than guessing: end-stage kidney disease 14x, heart failure 6x, sleep apnoea 5x, type 2 diabetes 5x, anaemia 2x.](figures/06-targets.svg)
 
 Kidney failure is roughly three times more predictable than anything else tried.
 That is because it is *systemic* — it disturbs blood chemistry, fluid balance,

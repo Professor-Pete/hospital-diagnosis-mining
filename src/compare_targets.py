@@ -146,7 +146,7 @@ def main() -> None:
               f"({rows[-1]['lift_over_chance']:.0f}x chance)")
 
     from predict_esrd import regimes as esrd_regimes
-    strict = esrd_regimes(codes, lookup)["also no renal category at all"]
+    strict = esrd_regimes(codes, lookup)["also no renal codes or dialysis hardware"]
 
     for target, label in RENAL_TARGETS.items():
         y = np.asarray(Xs[:, col_of[target]].todense()).ravel().astype(np.int8)

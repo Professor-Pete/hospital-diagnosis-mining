@@ -31,11 +31,11 @@ D649,D473,2.668889058723936,Essential (hemorrhagic) thrombocythemia
 D649,D72819,2.616149005120101,"Decreased white blood cell count, unspecified"
 D649,J851,2.5765381468997837,Abscess of lung with pneumonia
 D649,E611,2.492761339949938,Iron deficiency
-N186,T82838A,33.252269491667576,"Hemorrhage due to vascular prosth dev/grft, init"
-N186,M898X9,27.277914055726768,"Other specified disorders of bone, unspecified site"
-N186,E839,26.28952054733463,"Disorder of mineral metabolism, unspecified"
-N186,E8359,17.772241364833928,Other disorders of calcium metabolism
-N186,E859,15.073325987989005,"Amyloidosis, unspecified"
-N186,Z9483,12.4450283268289,Pancreas transplant status
-N186,E8889,11.792237703192841,Other specified metabolic disorders
-N186,N1370,11.74039347075219,"Vesicoureteral-reflux, unspecified"
+N186,M898X9,25.296882937104304,"Other specified disorders of bone, unspecified site"
+N186,E839,24.626944968500986,"Disorder of mineral metabolism, unspecified"
+N186,E8359,15.969209396724963,Other disorders of calcium metabolism
+N186,Z9483,13.18204292959368,Pancreas transplant status
+N186,E859,13.06294874625291,"Amyloidosis, unspecified"
+N186,E8889,11.764745787878294,Other specified metabolic disorders
+N186,N1370,11.524778143403399,"Vesicoureteral-reflux, unspecified"
+N186,E8779,11.194378109891023,Other fluid overload

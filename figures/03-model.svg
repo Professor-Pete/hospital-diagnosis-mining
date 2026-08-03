@@ -6,10 +6,10 @@
 <rect x="380" y="100" width="300" height="20" fill="#eceae5" rx="4"/>
 <path d="M380.0,100.0 H385.0 a4,4 0 0 1 4,4 V116.0 a4,4 0 0 1 -4,4 H380.0 Z" fill="#b6b4ad"/>
 <text x="692.0" y="115.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">3%</text>
-<text x="24.0" y="154.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">The model, with every kidney code removed</text>
+<text x="24.0" y="154.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">The model, kidney and dialysis hardware removed</text>
 <rect x="380" y="140" width="300" height="20" fill="#eceae5" rx="4"/>
-<path d="M380.0,140.0 H514.2 a4,4 0 0 1 4,4 V156.0 a4,4 0 0 1 -4,4 H380.0 Z" fill="#2a78d6"/>
-<text x="692.0" y="155.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">46%</text>
-<text x="24.0" y="196.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#84837d" text-anchor="start">15 times better than chance — without ever being shown a kidney diagnosis.</text>
+<path d="M380.0,140.0 H506.2 a4,4 0 0 1 4,4 V156.0 a4,4 0 0 1 -4,4 H380.0 Z" fill="#2a78d6"/>
+<text x="692.0" y="155.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">43%</text>
+<text x="24.0" y="196.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#84837d" text-anchor="start">14 times better than chance — with no kidney code and no dialysis hardware to go on.</text>
 <text x="24.0" y="228.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: results/esrd_model_comparison.csv (logistic regression) · metric is average precision</text>
 </svg>

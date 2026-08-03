@@ -174,20 +174,64 @@ again from scratch.
 **This is the result worth reporting.** With no kidney reference of any kind
 available, the model still identifies dialysis patients roughly 14 times better
 than chance. It does it by recognising the body-wide damage that kidney failure
-causes:
+causes.
 
-- **Disrupted bone and mineral chemistry.** Failing kidneys stop regulating
-  calcium and phosphate, so the skeleton pays for it — disorders of mineral
-  metabolism, calcium metabolism, and overactive parathyroid glands all rank
-  near the top.
-- **Fluid overload.** Kidneys that can no longer excrete water.
-- **Repeated failures of the surgically implanted access port.** Dialysis
-  requires a permanent connection into a blood vessel, and those connections
-  bleed, clot, narrow, and get infected. The model picks up all four.
+### How much does each part of that damage actually contribute?
 
-None of those codes mentions a kidney. The model reconstructed the shape of the
-disease from its consequences — which is a genuinely interesting result, and one
-that was completely hidden while the leaky codes were still in play.
+The obvious way to answer this is to look at the model's coefficients, but they
+answer a subtly different question — the effect of one code *holding the others
+fixed*, which understates a group of codes that move together. Instead, each
+group is **scrambled**: its values are shuffled across patients, destroying that
+group's link to the outcome while leaving everything else alone, and the drop in
+the model's score is measured.
+
+![Which parts of the chart carry the prediction: blood chemistry 7.8%, fluid 6.0%, access port failures 5.1%, bone and mineral chemistry 3.5%.](figures/05-importance.svg)
+
+- **Blood chemistry the kidney can't control (7.8%)** — potassium and acid
+  building up in the blood. This is the single biggest named signal, and it is
+  the most direct: it's the thing dialysis is *for*.
+- **Fluid the kidney can't remove (6.0%)** — water that has nowhere to go.
+- **Failures of the implanted access port (5.1%)** — dialysis needs a permanent
+  surgical connection into a blood vessel, and those bleed, clot, narrow, and
+  get infected. The model picks up all four.
+- **Bone and mineral chemistry (3.5%)** — failing kidneys stop regulating
+  calcium and phosphate, and the skeleton pays for it.
+
+**The honest caveat, which the chart makes plain:** those 25 codes together
+account for about a third of the model's score. The remaining ~3,560 codes it
+uses account for most of the rest. So the clean clinical story above is the
+*strongest and most interpretable* part of the signal, not the whole of it —
+the model is mostly drawing on a very large number of individually weak clues.
+Naming four groups and stopping there would have overstated how tidy it is.
+
+### Is dialysis the best condition to try this on?
+
+Not necessarily — so the same model was run against fifteen other diagnoses,
+with the same automatic rule for stripping giveaway codes so no condition gets
+favourable treatment.
+
+![How well each condition can be predicted: dialysis 0.988, ventilator dependence 0.967, severe sepsis 0.949, end-of-life care 0.949, down to anaemia 0.707.](figures/06-targets.svg)
+
+Two things stand out.
+
+**Severe sepsis with septic shock is the better showcase.** It scores nearly as
+well as dialysis, and its explanation is far cleaner: the model spots it through
+severe infections (peritonitis, necrotising fasciitis, cholangitis) and the
+organ failures they trigger (blood-clotting collapse, respiratory failure).
+That's a *causal* story a clinician would recognise immediately. Dialysis
+dependence, by contrast, is an administrative status code — the model finds it
+through the wreckage that surrounds it, which is interesting but indirect.
+
+**Obesity looks strong and isn't.** It scores 0.915, but its top predictors are
+all BMI codes — the measurement that *defines* obesity. The automatic filter
+missed them because "Body mass index" shares no words with "Obesity", so nothing
+flagged them as giveaways. That is the same leakage trap as the dialysis model's
+first attempt, caught here by reading the output rather than trusting the score.
+
+Both dialysis rows are on the chart: the stricter, hand-built filter used
+earlier scores 0.945, the uniform automatic one 0.988. The gap is the cost of
+generic rules — a filter built with knowledge of one specific condition removes
+more, and scores lower and more honestly.
 
 ## What this cannot tell you
 
@@ -210,6 +254,8 @@ python src/mine_associations.py      # pair mining over all 7.08 M discharges
 python src/hospital_concentration.py # is it clinical, or one hospital's habit?
 python src/triage_findings.py        # collapse to a reviewable shortlist
 python src/predict_dialysis.py       # the model, under three leakage regimes
+python src/feature_importance.py     # what carries the prediction
+python src/compare_targets.py        # the same model against 15 other diagnoses
 python tools/make_figures.py         # regenerate the charts above
 ```
 

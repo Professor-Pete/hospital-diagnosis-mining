@@ -225,6 +225,118 @@ def fig_newborn() -> str:
     )
 
 
+GROUP_PLAIN = {
+    "Electrolyte & acid-base": "Blood chemistry the kidney can't control",
+    "Fluid overload": "Fluid the kidney can't remove",
+    "Vascular access failure": "Failures of the implanted access port",
+    "Bone & mineral chemistry": "Bone and mineral chemistry",
+    "Transplant pathway": "On the transplant pathway",
+    "Other systemic": "Other systemic damage",
+}
+
+
+def fig_importance() -> str:
+    df = pd.read_csv(RESULTS / "dialysis_feature_importance.csv")
+    rest = df[df["group"].str.startswith("Everything else")].iloc[0]
+    groups = df[~df["group"].str.startswith("Everything else")].copy()
+    groups = groups.sort_values("pct_of_model", ascending=False)
+
+    w, top, row = 860, 104, 34
+    h = top + row * len(groups) + 96
+    x0, bar_w = 400, 300
+    vmax = 10.0  # percent of the model's score
+
+    parts = []
+    for i, r in groups.iterrows():
+        y = top + list(groups.index).index(i) * row
+        label = GROUP_PLAIN.get(r["group"], r["group"])
+        parts.append(text(24, y + 15, label, 12.5, INK_2))
+        parts.append(text(24 + 0, y + 29, f'{int(r["codes"])} codes', 10.5, INK_3))
+        parts.append(f'<rect x="{x0}" y="{y + 3}" width="{bar_w}" height="17" fill="{GRID}" rx="4"/>')
+        parts.append(bar(x0, y + 3, bar_w * min(r["pct_of_model"], vmax) / vmax, 17, BLUE))
+        parts.append(text(x0 + bar_w + 12, y + 17, f'{r["pct_of_model"]:.1f}%', 13,
+                          INK, weight=600))
+
+    base_y = top + row * len(groups) + 14
+    parts.append(f'<line x1="24" y1="{base_y}" x2="{w - 24}" y2="{base_y}" stroke="{BORDER}"/>')
+    parts.append(text(24, base_y + 22,
+                      f'All {int(groups["codes"].sum())} of these codes together: '
+                      f'32% of the score. The other {int(rest["codes"]):,} codes the model '
+                      f'uses: {rest["pct_of_model"]:.0f}%.', 12, INK_2))
+    parts.append(text(24, base_y + 40,
+                      "The two overlap and do not sum — this measures each group's "
+                      "contribution separately, not a split of a whole.", 11, INK_3))
+
+    return frame(
+        w, h,
+        "Which parts of the chart carry the prediction?",
+        "How far the model's score falls when each group of codes is scrambled.",
+        "\n".join(parts),
+        "Source: src/feature_importance.py · grouped permutation importance, held-out data, 5 repeats",
+    )
+
+
+TARGET_PLAIN = {
+    "Z992": "On kidney dialysis",
+    "Z992*": "On kidney dialysis (stricter clue removal)",
+    "Z9911": "Dependent on a breathing machine",
+    "R6521": "Severe sepsis with septic shock",
+    "Z515": "Receiving end-of-life care",
+    "E669": "Obesity",
+    "Z930": "Has a surgical airway (tracheostomy)",
+    "Z66": "Do-not-resuscitate order",
+    "I509": "Heart failure",
+    "F1120": "Opioid dependence",
+    "E119": "Type 2 diabetes",
+    "N390": "Urinary tract infection",
+    "G4733": "Sleep apnoea",
+    "J449": "COPD",
+    "I4891": "Atrial fibrillation",
+    "F17210": "Smoker",
+    "D649": "Anaemia",
+}
+
+
+def fig_targets() -> str:
+    df = pd.read_csv(RESULTS / "target_comparison.csv").sort_values(
+        "roc_auc", ascending=False)
+
+    w, top, row = 860, 104, 29
+    h = top + row * len(df) + 78
+    x0, bar_w = 400, 300
+    lo = 0.5  # a coin flip
+
+    parts = [
+        f'<rect x="24" y="72" width="11" height="11" rx="3" fill="{ORANGE}"/>',
+        text(42, 82, "Clearest to explain", 12, INK_2),
+        f'<rect x="230" y="72" width="11" height="11" rx="3" fill="{GRAY}"/>',
+        text(248, 82, "Score inflated by a clue the filter missed", 12, INK_2),
+    ]
+    for i, (_, r) in enumerate(df.iterrows()):
+        y = top + i * row
+        label = TARGET_PLAIN.get(r["code"], r["description"][:38])
+        colour = ORANGE if r["code"] == "R6521" else (
+            GRAY if r["code"] == "E669" else BLUE)
+        parts.append(text(24, y + 14, label, 12.5, INK_2))
+        parts.append(f'<rect x="{x0}" y="{y + 2}" width="{bar_w}" height="15" fill="{GRID}" rx="4"/>')
+        parts.append(bar(x0, y + 2, bar_w * (r["roc_auc"] - lo) / (1 - lo), 15, colour))
+        parts.append(text(x0 + bar_w + 12, y + 15, f'{r["roc_auc"]:.3f}', 12.5,
+                          INK, weight=600))
+
+    parts.append(text(24, top + row * len(df) + 26,
+                      "0.50 is a coin flip; 1.00 is perfect. Every condition uses the same "
+                      "automatic clue-removal, so these are comparable to each other.",
+                      11.5, INK_3))
+
+    return frame(
+        w, h,
+        "How well can each condition be predicted from the rest of the chart?",
+        "Sixteen diagnoses, same model, same rules for removing giveaway codes.",
+        "\n".join(parts),
+        "Source: results/target_comparison.csv · ROC-AUC on held-out data",
+    )
+
+
 def main() -> int:
     FIGS.mkdir(exist_ok=True)
     figures = {
@@ -232,6 +344,8 @@ def main() -> int:
         "02-hospitals.svg": fig_hospitals(),
         "03-model.svg": fig_model(),
         "04-newborn.svg": fig_newborn(),
+        "05-importance.svg": fig_importance(),
+        "06-targets.svg": fig_targets(),
     }
     for name, svg in figures.items():
         (FIGS / name).write_text(svg)

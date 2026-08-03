@@ -1,0 +1,189 @@
+"""Which diagnosis is easiest to predict from the rest of the chart?
+
+Z99.2 (dialysis dependence) was the first target tried. This runs the same
+model against a spread of other conditions to see whether any is both
+predicted more accurately and easier to explain.
+
+Two things make the comparison fair:
+
+**One automatic leakage filter, applied identically to every target.** No
+code gets hand-tuned exclusions that another does not. For target T the
+filter drops T itself, everything sharing T's 3-character ICD root,
+everything in T's AHRQ CCSR clinical category, and every code whose
+description reuses T's distinctive words. That last rule is what removes
+"end stage renal disease" when the target is "dependence on renal dialysis",
+without anyone having to think of it.
+
+**One fixed model configuration.** Cross-validating hyperparameters per
+target would let an easy target look good partly because it got a better
+search. Every target gets the same 400-feature selection and the same
+regularisation.
+
+Scores are reported two ways because prevalence differs enormously across
+these codes: ROC-AUC is prevalence-independent and comparable directly,
+while average precision is divided by its own chance floor to give a "times
+better than guessing" figure.
+
+Run:  python src/compare_targets.py
+"""
+from __future__ import annotations
+
+import numpy as np
+import pandas as pd
+from sklearn.feature_selection import SelectKBest, f_classif
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import average_precision_score, roc_auc_score
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+
+from config import RESULTS
+from mine_associations import _content_words
+from predict_dialysis import SEED, load, sample
+
+SUBSAMPLE = 400_000
+K_FEATURES = 400
+
+TARGETS = [
+    "Z992",    # dependence on renal dialysis
+    "Z9911",   # dependence on ventilator
+    "Z930",    # tracheostomy status
+    "I509",    # heart failure, unspecified
+    "J449",    # COPD
+    "E119",    # type 2 diabetes without complications
+    "F17210",  # nicotine dependence, cigarettes
+    "G4733",   # obstructive sleep apnea
+    "Z515",    # encounter for palliative care
+    "F1120",   # opioid dependence
+    "D649",    # anaemia, unspecified
+    "I4891",   # atrial fibrillation
+    "N390",    # urinary tract infection
+    "Z66",     # do not resuscitate
+    "E669",    # obesity
+    "R6521",   # severe sepsis with septic shock
+]
+
+
+def leak_filter(target: str, codes: np.ndarray, lookup: pd.DataFrame) -> np.ndarray:
+    """Codes to keep as features for `target`. Identical rules for every target."""
+    idx = pd.Index(codes)
+    desc = pd.Series(idx.map(lookup["description"]).fillna(""), index=idx)
+    ccsr = pd.Series(idx.map(lookup["ccsr"]).fillna("?"), index=idx)
+
+    target_words = _content_words(lookup["description"].get(target, ""))
+    target_ccsr = lookup["ccsr"].get(target, "?")
+
+    shares_words = np.array([
+        bool(target_words & _content_words(d)) for d in desc
+    ])
+    same_ccsr = (ccsr.to_numpy() == target_ccsr) & (target_ccsr != "?")
+    return (
+        np.asarray(idx != target)
+        & np.asarray(idx.str[:3] != target[:3])
+        & ~same_ccsr
+        & ~shares_words
+    )
+
+
+def main() -> None:
+    X, codes, lookup, _ = load()
+    col_of = {c: i for i, c in enumerate(codes)}
+    Xs, _ = sample(X, np.zeros(X.shape[0], dtype=np.int8), size=SUBSAMPLE)
+    counts = np.asarray(Xs.sum(axis=0)).ravel()
+    common = counts >= 100
+
+    rows, tops = [], {}
+    for target in TARGETS:
+        if target not in col_of:
+            continue
+        y = np.asarray(Xs[:, col_of[target]].todense()).ravel().astype(np.int8)
+        if y.sum() < 500:
+            print(f"skipping {target}: only {y.sum()} positives in the subsample")
+            continue
+
+        keep = np.flatnonzero(leak_filter(target, codes, lookup) & common)
+        Xr, names = Xs[:, keep], codes[keep]
+
+        X_tr, X_te, y_tr, y_te = train_test_split(
+            Xr, y, test_size=0.25, random_state=SEED, stratify=y
+        )
+        model = Pipeline([
+            ("select", SelectKBest(score_func=f_classif, k=min(K_FEATURES, len(keep)))),
+            ("clf", LogisticRegression(max_iter=2000, class_weight="balanced", C=1.0)),
+        ]).fit(X_tr, y_tr)
+
+        prob = model.predict_proba(X_te)[:, 1]
+        prevalence = y_te.mean()
+        ap = average_precision_score(y_te, prob)
+        rows.append({
+            "code": target,
+            "description": lookup["description"].get(target, "?"),
+            "prevalence_pct": 100 * prevalence,
+            "roc_auc": roc_auc_score(y_te, prob),
+            "avg_precision": ap,
+            "ap_baseline": prevalence,
+            "lift_over_chance": ap / prevalence,
+            "features_dropped_as_leaky": int(len(codes) - len(keep)),
+        })
+
+        sel = model.named_steps["select"]
+        clf = model.named_steps["clf"]
+        chosen = names[sel.get_support()]
+        tops[target] = (
+            pd.DataFrame({
+                "target": target,
+                "code": chosen,
+                "odds_ratio": np.exp(clf.coef_.ravel()),
+                "description": [lookup["description"].get(c, "?") for c in chosen],
+            })
+            .nlargest(8, "odds_ratio")
+        )
+        print(f"  {target:<7} {lookup['description'].get(target,'?')[:44]:<46} "
+              f"AUC {rows[-1]['roc_auc']:.3f}  AP {ap:.3f}  "
+              f"({rows[-1]['lift_over_chance']:.0f}x chance)")
+
+    # The uniform filter is deliberately blunter than a filter built with
+    # domain knowledge of one condition. For Z99.2 it removes anything saying
+    # "renal" or "dialysis" but keeps codes saying "kidney", so the score
+    # here is higher than the hand-tuned figure reported elsewhere. Fit that
+    # version too, so both numbers sit in the same table and nobody has to
+    # reconcile them across files.
+    from predict_dialysis import regimes as dialysis_regimes
+    strict = dialysis_regimes(codes, lookup)["also no renal category at all"]
+    y = np.asarray(Xs[:, col_of["Z992"]].todense()).ravel().astype(np.int8)
+    keep = np.flatnonzero(strict & common)
+    X_tr, X_te, y_tr, y_te = train_test_split(
+        Xs[:, keep], y, test_size=0.25, random_state=SEED, stratify=y
+    )
+    m = Pipeline([
+        ("select", SelectKBest(score_func=f_classif, k=min(K_FEATURES, len(keep)))),
+        ("clf", LogisticRegression(max_iter=2000, class_weight="balanced", C=1.0)),
+    ]).fit(X_tr, y_tr)
+    prob = m.predict_proba(X_te)[:, 1]
+    prevalence = y_te.mean()
+    ap = average_precision_score(y_te, prob)
+    rows.append({
+        "code": "Z992*", "description": "Dependence on renal dialysis "
+                                        "(hand-tuned renal filter)",
+        "prevalence_pct": 100 * prevalence,
+        "roc_auc": roc_auc_score(y_te, prob), "avg_precision": ap,
+        "ap_baseline": prevalence, "lift_over_chance": ap / prevalence,
+        "features_dropped_as_leaky": int(len(codes) - len(keep)),
+    })
+
+    df = pd.DataFrame(rows).sort_values("roc_auc", ascending=False)
+    df["filter"] = np.where(df["code"] == "Z992*",
+                            "hand-tuned for this condition", "uniform automatic")
+    df.to_csv(RESULTS / "target_comparison.csv", index=False)
+    pd.concat(tops.values()).to_csv(RESULTS / "target_top_predictors.csv", index=False)
+
+    pd.set_option("display.width", 200)
+    pd.set_option("display.max_colwidth", 46)
+    print("\nRanked by ROC-AUC:\n")
+    print(df[["code", "description", "prevalence_pct", "roc_auc",
+              "avg_precision", "lift_over_chance"]]
+          .to_string(index=False, float_format=lambda v: f"{v:.3f}"))
+    print(f"\nwrote target_comparison.csv and target_top_predictors.csv")
+
+
+if __name__ == "__main__":
+    main()

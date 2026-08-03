@@ -1,32 +1,34 @@
-"""Predict dialysis dependence (Z99.2) from the rest of a discharge record.
+"""Predict end-stage renal disease (N18.6) from the rest of a discharge record.
 
-Given every other diagnosis on a discharge record, can you tell whether the
-patient is on dialysis? Z99.2 makes a good test case: it is common enough
-to model (2.37% of discharges) and it has a clear clinical footprint.
+Given every other diagnosis on a discharge record, can you tell the patient's
+kidneys have failed? N18.6 makes a good test case: it is a real disease rather
+than a status or a treatment, it is common enough to model (3.0% of
+discharges), and it has a clear systemic footprint.
 
 The interesting problem is leakage. Several codes cannot be assigned to
-anyone who is *not* on dialysis — Z91.15 is literally "patient's
-noncompliance with renal dialysis" — and ICD-10-CM coding rules *require*
-others (N18.6 end-stage renal disease, I12.0 / I13.2 hypertensive CKD with
-stage 5) to be recorded alongside Z99.2. A model handed those features
-scores brilliantly while learning nothing except the coding manual.
+anyone whose kidneys have not failed. Z99.2 is "dependence on renal dialysis"
+— you are on dialysis *because* of this disease. I12.0 and I13.2
+("hypertensive chronic kidney disease with stage 5 CKD or ESRD") name the
+condition outright, and ICD-10-CM instructs coders to record them together.
+A model handed those features scores brilliantly while learning nothing
+except the coding manual.
 
 So the model is fit under three feature regimes, loosest to strictest, and
 the drop between them measures how much of the performance was circular:
 
 1. every code except the target;
-2. minus anything naming dialysis or ESRD, and the codes the coding rules
-   force to appear with it;
+2. minus anything naming dialysis, ESRD or chronic kidney disease, and the
+   codes the coding rules force to appear alongside it;
 3. minus every renal code at all.
 
-Two other things this gets right, because a rare outcome punishes getting
-them wrong:
+Two other things this gets right, because a relatively rare outcome punishes
+getting them wrong:
 
-* **Evaluation happens at true prevalence.** Training on a rebalanced set
-  is sensible for a 2.37% outcome, but scoring on a 50/50 test set is not:
-  it moves the do-nothing baseline from 97.63% to 50% and makes any model
-  look strong. Accuracy is replaced by ROC-AUC and average precision
-  against the real 2.37% base rate.
+* **Evaluation happens at true prevalence.** Training on a rebalanced set is
+  sensible for a 3% outcome, but scoring on a 50/50 test set is not: it moves
+  the do-nothing baseline from 97% to 50% and makes any model look strong.
+  Accuracy is replaced by ROC-AUC and average precision against the real base
+  rate.
 * **Feature screening uses Benjamini-Hochberg FDR**, not raw p < 0.05.
   Across ~3,700 candidate features the naive rule alone would return
   ~185 "significant" results from noise.
@@ -34,7 +36,7 @@ them wrong:
 ``k`` and the regularisation strength are cross-validated rather than
 picked by hand.
 
-Run:  python src/predict_dialysis.py
+Run:  python src/predict_esrd.py
 """
 from __future__ import annotations
 
@@ -54,7 +56,7 @@ from sklearn.pipeline import Pipeline
 
 from config import CACHE, RESULTS
 
-TARGET = "Z992"  # Dependence on renal dialysis
+TARGET = "N186"  # End stage renal disease
 SEED = 42
 SUBSAMPLE = 600_000  # rows drawn for modelling; keeps the CV grid tractable
 
@@ -64,13 +66,16 @@ SUBSAMPLE = 600_000  # rows drawn for modelling; keeps the CV grid tractable
 # --------------------------------------------------------------------------
 
 def leak_terms(lookup: pd.DataFrame) -> set[str]:
-    """Codes whose own description names dialysis or ESRD.
+    """Codes whose own description names dialysis, ESRD or chronic kidney disease.
 
     Derived from the ICD-10-CM descriptions rather than hand-listed, so a
-    code cannot be missed just because nobody thought of it.
+    code cannot be missed just because nobody thought of it. Dialysis counts
+    here because it is the treatment *for* this disease: a patient on
+    dialysis has, by definition, failed kidneys.
     """
     d = lookup["description"].str.lower()
-    hit = d.str.contains("dialysis|end stage renal|end-stage renal", regex=True, na=False)
+    hit = d.str.contains(
+        "dialysis|end stage renal|end-stage renal|chronic kidney", regex=True, na=False)
     return set(lookup.index[hit])
 
 
@@ -110,7 +115,8 @@ def regimes(codes: np.ndarray, lookup: pd.DataFrame) -> dict[str, np.ndarray]:
     # downstream consequences of ESRD that are named as such.
     coding_rule = (
         idx.str.startswith("N18") | idx.str.startswith("I12") | idx.str.startswith("I13")
-        | idx.isin({"N250", "N2581", "D631", "Z4931", "Z4932", "Z940", "Z905", "Z9115"})
+        | idx.isin({"N250", "N2581", "D631", "Z4931", "Z4932", "Z940", "Z905",
+                    "Z9115", "Z992"})
         | desc.str.contains("chronic kidney disease", na=False)
     )
     renal_cat = (
@@ -252,7 +258,7 @@ def main() -> None:
     n_all = X.shape[0]
     print(f"{n_all:,} discharges, {y_all.sum():,} with {TARGET} "
           f"({100 * y_all.mean():.2f}% prevalence)")
-    print(f"a constant 'no dialysis' prediction is {100 * (1 - y_all.mean()):.2f}% accurate\n")
+    print(f"a constant 'no ESRD' prediction is {100 * (1 - y_all.mean()):.2f}% accurate\n")
 
     Xs, ys = sample(X, y_all)
 
@@ -266,11 +272,11 @@ def main() -> None:
         ["regime", "model", "roc_auc", "avg_precision", "ap_baseline",
          "accuracy", "accuracy_of_always_no", "recall", "precision", "brier"]
     ]
-    out.to_csv(RESULTS / "dialysis_model_comparison.csv", index=False)
+    out.to_csv(RESULTS / "esrd_model_comparison.csv", index=False)
     print(out.to_string(index=False, float_format=lambda v: f"{v:.4f}"))
 
     top = coef_tables["also no renal category at all"].head(20)
-    top.to_csv(RESULTS / "dialysis_top_predictors_deleaked.csv", index=False)
+    top.to_csv(RESULTS / "esrd_top_predictors_deleaked.csv", index=False)
     print("\nStrongest predictors once every renal/dialysis code is removed:")
     print(top.to_string(index=False, max_colwidth=60))
 

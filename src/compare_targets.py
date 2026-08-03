@@ -1,7 +1,7 @@
 """Which diagnosis is easiest to predict from the rest of the chart?
 
-Z99.2 (dialysis dependence) was the first target tried. This runs the same
-model against a spread of other conditions to see whether any is both
+N18.6 (end-stage renal disease) was the first target tried. This runs the
+same model against a spread of other conditions to see whether any is both
 predicted more accurately and easier to explain.
 
 Two things make the comparison fair:
@@ -16,8 +16,9 @@ without anyone having to think of it.
 
 **One fixed model configuration.** Cross-validating hyperparameters per
 target would let an easy target look good partly because it got a better
-search. Every target gets the same 400-feature selection and the same
-regularisation.
+search. Every target gets the same 800-feature selection and the same
+regularisation — the same settings ``predict_esrd.py`` lands on, so the
+N18.6 number here matches the one reported there.
 
 Scores are reported two ways because prevalence differs enormously across
 these codes: ROC-AUC is prevalence-independent and comparable directly,
@@ -38,10 +39,13 @@ from sklearn.pipeline import Pipeline
 
 from config import RESULTS
 from mine_associations import _content_words
-from predict_dialysis import SEED, load, sample
+from predict_esrd import SEED, load, sample
 
-SUBSAMPLE = 400_000
-K_FEATURES = 400
+# Matched to predict_esrd.py exactly. If these drifted, N18.6 would score
+# differently here than in its own figure, and a reader would have no way to
+# reconcile the two numbers.
+SUBSAMPLE = 600_000
+K_FEATURES = 800
 
 # Conditions a patient *has*. AHRQ gives each of these a real clinical CCSR
 # category, meaning it can stand alone as a reason for admission.
@@ -52,14 +56,14 @@ TARGETS = [
     "D649",    # anaemia, unspecified
 ]
 
-# The renal pair, run separately. N18.6 is the disease; Z99.2 is the treatment
-# for it — a status code, not a diagnosis. Both get the same strict renal
-# exclusion (every kidney-related CCSR category, plus any code whose
-# description names the organ) rather than the uniform automatic filter, so
-# the disease-versus-treatment comparison between them is like for like.
+# Run separately, under the strict renal exclusion (every kidney-related CCSR
+# category, plus any code whose description names the organ) rather than the
+# uniform automatic filter. The generic rule leaves too much behind for this
+# one: it would keep "dependence on renal dialysis", which gives the answer
+# away outright. Using the conservative filter keeps one number for this
+# disease across the whole project.
 RENAL_TARGETS = {
-    "N186": "End stage renal disease (the disease)",
-    "Z992": "Dependence on renal dialysis (the treatment)",
+    "N186": "End stage renal disease",
 }
 
 
@@ -141,13 +145,13 @@ def main() -> None:
               f"AUC {rows[-1]['roc_auc']:.3f}  AP {ap:.3f}  "
               f"({rows[-1]['lift_over_chance']:.0f}x chance)")
 
-    from predict_dialysis import regimes as dialysis_regimes
-    strict = dialysis_regimes(codes, lookup)["also no renal category at all"]
+    from predict_esrd import regimes as esrd_regimes
+    strict = esrd_regimes(codes, lookup)["also no renal category at all"]
 
     for target, label in RENAL_TARGETS.items():
         y = np.asarray(Xs[:, col_of[target]].todense()).ravel().astype(np.int8)
-        # `strict` was built to exclude renal codes for Z99.2; N18.6 is itself
-        # a renal code, so drop it explicitly as well.
+        # `strict` already excludes every renal code, but the target itself
+        # is renal, so make certain it is out.
         keep = np.flatnonzero(strict & common & (codes != target))
         Xr, names = Xs[:, keep], codes[keep]
         X_tr, X_te, y_tr, y_te = train_test_split(
@@ -181,7 +185,6 @@ def main() -> None:
     df = pd.DataFrame(rows).sort_values("lift_over_chance", ascending=False)
     df["filter"] = np.where(df["code"].isin(RENAL_TARGETS),
                             "strict renal exclusion", "uniform automatic")
-    df["kind"] = np.where(df["code"] == "Z992", "treatment status", "disease")
     df.to_csv(RESULTS / "target_comparison.csv", index=False)
     pd.concat(tops.values()).to_csv(RESULTS / "target_top_predictors.csv", index=False)
 

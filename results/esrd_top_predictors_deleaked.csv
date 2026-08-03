@@ -1,0 +1,21 @@
+code,coef,odds_ratio,description
+T82838A,3.5041230201610687,33.252269491667576,"Hemorrhage due to vascular prosth dev/grft, init"
+M898X9,3.306077365818833,27.277914055726768,"Other specified disorders of bone, unspecified site"
+E839,3.269170401501876,26.28952054733463,"Disorder of mineral metabolism, unspecified"
+E8359,2.8776377661672323,17.772241364833928,Other disorders of calcium metabolism
+E859,2.7129266908743643,15.073325987989005,"Amyloidosis, unspecified"
+Z9483,2.521321211978387,12.4450283268289,Pancreas transplant status
+E8889,2.4674414932486313,11.792237703192841,Other specified metabolic disorders
+N1370,2.4630353292345903,11.74039347075219,"Vesicoureteral-reflux, unspecified"
+E8779,2.387709718534699,10.88852757106524,Other fluid overload
+Z7682,2.3761946258059807,10.763864298475783,Awaiting organ transplant status
+T827XXA,2.264581018165918,9.627090180094214,"Infect/inflm react d/t oth cardi/vasc dev/implnt/grft, init"
+C9001,2.258318675664729,9.566990423138336,Multiple myeloma in remission
+T82858A,2.2476862933549517,9.465809374389325,"Stenosis of other vascular prosth dev/grft, init"
+K658,2.2044664596703196,9.065413513607911,Other peritonitis
+E213,2.183409273066437,8.876517201801303,"Hyperparathyroidism, unspecified"
+I776,2.164706629460473,8.712045684365116,"Arteritis, unspecified"
+Y830,2.078929895199428,7.995907875106656,"Txplt of whole organ cause abn react/compl, w/o misadvnt"
+T82868A,2.03376107154833,7.642777403064549,"Thrombosis due to vascular prosth dev/grft, init"
+T82898A,1.9773232499910716,7.223381896767748,"Oth complication of vascular prosth dev/grft, init"
+M899,1.95786891134123,7.084213879252477,"Disorder of bone, unspecified"

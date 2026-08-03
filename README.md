@@ -148,61 +148,63 @@ everybody. It's likely a more common problem than it gets credit for.
 The second half of the project: pick one diagnosis code, and see whether it can
 be predicted from the *other* codes on the same record.
 
-The code chosen was **`Z99.2` — dependence on renal dialysis**. It appears on
-2.37% of hospital stays.
+The code chosen was **`N18.6` — end-stage renal disease**, kidney failure severe
+enough to need dialysis or a transplant. It appears on 3.05% of hospital stays.
 
 That number matters immediately. A "model" that answers *no* to everyone, every
-time, is right 97.6% of the time and has learned nothing. So accuracy is useless
-here, and the model is scored on how well it picks dialysis patients out of the
+time, is right 97.0% of the time and has learned nothing. So accuracy is useless
+here, and the model is scored on how well it picks these patients out of the
 crowd, against a random-guessing floor.
 
-The first attempt scored extremely well — and it was cheating. Its most powerful
-clue was a code meaning *"patient's noncompliance with renal dialysis."* You
-cannot skip a dialysis appointment if you aren't on dialysis. Several other top
-predictors were codes the rulebook *requires* to be recorded alongside `Z99.2`.
-The model wasn't diagnosing anyone; it was noticing that the chart already said
-"dialysis" a few columns over — like predicting who owns a car by checking
-whether they have car insurance. This is called **target leakage**, and it is
-the most common way a medical prediction model produces a number that falls
-apart in the real world.
+The first attempt scored almost perfectly — and it was cheating. Its most
+powerful clue was `Z99.2`, "dependence on renal dialysis". You are only on
+dialysis *because* your kidneys have failed. Several other top predictors were
+codes the rulebook *requires* to be recorded alongside kidney failure, like
+"hypertensive chronic kidney disease with stage 5 CKD". The model wasn't
+diagnosing anyone; it was noticing that the chart already said "failed kidneys"
+a few columns over — like predicting who owns a car by checking whether they
+have car insurance. This is called **target leakage**, and it is the most common
+way a medical prediction model produces a number that falls apart in the real
+world.
 
 So every kidney- and dialysis-related code was removed, and the model was fit
 again from scratch.
 
-![Spotting dialysis patients with every kidney clue taken away: 37% versus 2% for random guessing, 16 times better than chance.](figures/03-model.svg)
+![Spotting failed kidneys with every kidney clue taken away: 46% versus 3% for random guessing, 15 times better than chance.](figures/03-model.svg)
 
-**This is the result worth reporting.** With no kidney reference of any kind
-available, the model still identifies dialysis patients roughly 16 times better
+**This is the result worth reporting.** With no kidney or dialysis reference of
+any kind available, the model still finds these patients roughly 15 times better
 than chance. It does it by recognising the body-wide damage that kidney failure
 causes.
 
-### What "37%" actually means
+### What "46%" actually means
 
-It does **not** mean the model is right 37% of the time. The model never gives a
+It does **not** mean the model is right 46% of the time. The model never gives a
 yes-or-no answer at all. It scores every patient and puts them in order, most
-likely to least likely, and the 37% measures how good that ordering is.
+likely to least likely, and the 46% measures how good that ordering is.
 
 Here is the same thing without any statistics. The held-out set has 150,000
-patients, of whom 3,526 — about 1 in 43 — are on dialysis. Pick 1,000 of them:
+patients, of whom about 1 in 33 have end-stage kidney disease. Pick 1,000 of
+them:
 
-| Take 1,000 patients… | How many are really on dialysis |
+| Take 1,000 patients… | How many really have failed kidneys |
 |---|---|
-| picked at random | about **24** |
-| the 1,000 the model ranks highest | **593** |
+| picked at random | about **30** |
+| the 1,000 the model ranks highest | **712** |
 
 Same pool, same 1,000 people pulled out of it. That gap is what the model is
 worth.
 
-The 37% is that hit rate averaged over the whole ranking rather than just the
-top 1,000. It runs at 69% among the top 100, 59% by the top 1,000, and 35% by
-the top 5,000, falling as you dig deeper to scrape up the last few dialysis
-patients. Guessing at random scores 2.3% at *every* depth, because any random
-handful of patients is 2.3% dialysis. 37 ÷ 2.3 ≈ **16 times better than
-chance**, and every figure below uses that same framing so the numbers can be
-compared to one another.
+The 46% is that hit rate averaged over the whole ranking rather than just the
+top 1,000. It runs at 90% among the top 100, 71% by the top 1,000, and 44.5% by
+the top 5,000, falling as you dig deeper to scrape up the last few patients.
+Guessing at random scores 3% at *every* depth, because any random handful of
+patients is 3% kidney failure. 46 ÷ 3 ≈ **15 times better than chance**, and
+every figure below uses that same framing so the numbers can be compared to one
+another.
 
 Where you would actually draw the line — flag the top 100? the top 5,000? — is a
-separate decision, trading false alarms against missed patients. The 37% is
+separate decision, trading false alarms against missed patients. The 46% is
 deliberately independent of that choice.
 
 ### How much does each part of that damage actually contribute?
@@ -214,71 +216,45 @@ group is **scrambled**: its values are shuffled across patients, destroying that
 group's link to the outcome while leaving everything else alone, and the drop in
 the model's score is measured.
 
-![Which parts of the chart carry the prediction: blood chemistry 7.8%, fluid 6.0%, access port failures 5.1%, bone and mineral chemistry 3.5%.](figures/05-importance.svg)
+![Which parts of the chart carry the prediction: blood chemistry 7.3%, fluid 6.3%, dialysis access failures 6.1%, bone and mineral chemistry 3.6%.](figures/05-importance.svg)
 
-- **Blood chemistry the kidney can't control (7.8%)** — potassium and acid
-  building up in the blood. This is the single biggest named signal, and it is
-  the most direct: it's the thing dialysis is *for*.
-- **Fluid the kidney can't remove (6.0%)** — water that has nowhere to go.
-- **Failures of the implanted access port (5.1%)** — dialysis needs a permanent
-  surgical connection into a blood vessel, and those bleed, clot, narrow, and
-  get infected. The model picks up all four.
-- **Bone and mineral chemistry (3.5%)** — failing kidneys stop regulating
+- **Blood chemistry the kidney can't control (7.3%)** — potassium and acid
+  building up in the blood. The largest named signal, and the most direct: it is
+  the thing that makes kidney failure an emergency.
+- **Fluid the kidney can't remove (6.3%)** — water that has nowhere to go.
+- **Failures of the dialysis access port (6.1%)** — treating this disease needs
+  a permanent surgical connection into a blood vessel, and those bleed, clot,
+  narrow, and get infected. The model picks up all four.
+- **Bone and mineral chemistry (3.6%)** — failing kidneys stop regulating
   calcium and phosphate, and the skeleton pays for it.
 
-**The honest caveat, which the chart makes plain:** those 25 codes together
-account for about a third of the model's score. The remaining ~3,560 codes it
-uses account for most of the rest. So the clean clinical story above is the
-*strongest and most interpretable* part of the signal, not the whole of it —
-the model is mostly drawing on a very large number of individually weak clues.
-Naming four groups and stopping there would have overstated how tidy it is.
+**Two honest caveats.** First, those 25 codes together account for about a third
+of the model's score; the remaining ~3,560 codes it uses account for most of the
+rest. The clean clinical story above is the *strongest and most interpretable*
+part of the signal, not the whole of it. Second, the access-port codes are
+dialysis hardware — they sit in a *cardiovascular* device category rather than a
+renal one, so a category-based filter never caught them. Some residual leakage
+survives, and claiming a perfectly clean model would be overstating it.
 
-### A diagnosis, or a treatment?
+### Is kidney failure unusually easy to predict?
 
-Worth pausing on what `Z99.2` actually is. It is **not a diagnosis** — it is a
-status code meaning "this patient receives dialysis". AHRQ classifies it as one
-that cannot be a principal diagnosis, because it isn't a thing you *have*, it's
-a thing being *done* for you. The disease is a separate code, `N18.6`,
-end-stage renal disease.
+Yes, and by a wide margin. The same model was run against four other conditions
+patients actually have, using the same rules for stripping giveaway codes.
 
-That distinction explains something awkward earlier: dialysis needed a stricter,
-hand-built filter than anything else. A treatment-status code is assigned by an
-administrative process welded tightly to the disease coding, so the giveaways
-are more numerous and more entangled than for a condition a patient simply has.
+![How much better than guessing: end-stage kidney disease 15x, heart failure 6x, sleep apnoea 5x, type 2 diabetes 5x, anaemia 2x.](figures/06-targets.svg)
 
-So both were run — the disease and the treatment for it, side by side, each with
-every kidney-related code stripped out.
+Kidney failure is roughly three times more predictable than anything else tried.
+That is because it is *systemic* — it disturbs blood chemistry, fluid balance,
+bone metabolism and the vascular system all at once, so it leaves marks all over
+the chart. Heart failure, diabetes and sleep apnoea sit together around 5x: real
+but unremarkable signatures.
 
-![How much better than guessing: dialysis 16x, end-stage kidney disease 14x, heart failure 5x, sleep apnoea 5x, type 2 diabetes 5x, anaemia 2x.](figures/06-targets.svg)
-
-**They score almost the same** — 16x for the treatment, 14x for the disease. Both
-are far ahead of everything else, which makes sense: kidney failure at this stage
-marks the whole body, so whichever code you aim at, the traces are the same.
-
-But the codes that *distinguish* them are the interesting part:
-
-- Predicting the **disease** leans on physiological consequences — fluid
-  overload, bone disorders, inflamed arteries.
-- Predicting the **treatment** leans partly on care-delivery codes instead —
-  pancreas transplant status, and, tellingly, *"procedure not carried out
-  because of patient belief and group pressure"*. That is a record of someone
-  declining treatment, which can only exist if there is a treatment to decline.
-
-So the model finds a disease through the damage it does, and finds a treatment
-partly through the paperwork that surrounds delivering it. Those are different
-questions wearing similar clothes, and it would be easy to report one as if it
-were the other.
-
-### The rest of the list
-
-The other four are all conditions a patient has, run under the automatic filter.
-
-**The bottom is as informative as the top.** Anaemia manages only twice chance.
-That is not a failure of the model, it is a fact about anaemia: it turns up in
-almost every kind of patient for almost every reason, so the rest of the chart
-barely narrows it down. Heart failure, diabetes and sleep apnoea sit together
-around 5x — real but unremarkable signatures. Kidney failure is predictable
-precisely because it is systemic in a way the others are not.
+**The bottom of the chart is as informative as the top.** Anaemia manages only
+twice chance. That is not a failure of the model; it is a fact about the
+condition. Anaemia turns up in almost every kind of patient for almost every
+reason, so the rest of the chart barely narrows it down. A condition is
+predictable from its neighbours only when it changes the body in a specific way,
+and plenty of common conditions simply don't.
 
 ## What this cannot tell you
 
@@ -300,9 +276,9 @@ python src/build_transactions.py     # .SAV -> sparse matrix, ~3 min
 python src/mine_associations.py      # pair mining over all 7.08 M discharges
 python src/hospital_concentration.py # is it clinical, or one hospital's habit?
 python src/triage_findings.py        # collapse to a reviewable shortlist
-python src/predict_dialysis.py       # the model, under three leakage regimes
+python src/predict_esrd.py           # the model, under three leakage regimes
 python src/feature_importance.py     # what carries the prediction
-python src/compare_targets.py        # the same model against five other conditions
+python src/compare_targets.py        # the same model against four other conditions
 python tools/make_figures.py         # regenerate the charts above
 ```
 

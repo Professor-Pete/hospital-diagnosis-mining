@@ -168,7 +168,7 @@ def fig_hospitals() -> str:
 
 
 def fig_model() -> str:
-    m = pd.read_csv(RESULTS / "dialysis_model_comparison.csv")
+    m = pd.read_csv(RESULTS / "esrd_model_comparison.csv")
     # Logistic regression rows (iloc[0]) — the same model family used in
     # compare_targets.py, so the "times better than chance" figure quoted
     # here and there cannot drift apart.
@@ -195,10 +195,10 @@ def fig_model() -> str:
 
     return frame(
         w, h,
-        "Spotting dialysis patients with every kidney clue taken away",
-        "How reliably the model picks them out, next to what random guessing achieves.",
+        "Spotting failed kidneys with every kidney clue taken away",
+        "How reliably the model finds end-stage kidney disease, next to random guessing.",
         "\n".join(parts),
-        "Source: results/dialysis_model_comparison.csv (logistic regression) · metric is average precision",
+        "Source: results/esrd_model_comparison.csv (logistic regression) · metric is average precision",
     )
 
 
@@ -231,7 +231,7 @@ def fig_newborn() -> str:
 GROUP_PLAIN = {
     "Electrolyte & acid-base": "Blood chemistry the kidney can't control",
     "Fluid overload": "Fluid the kidney can't remove",
-    "Vascular access failure": "Failures of the implanted access port",
+    "Vascular access failure": "Failures of the dialysis access port",
     "Bone & mineral chemistry": "Bone and mineral chemistry",
     "Transplant pathway": "On the transplant pathway",
     "Other systemic": "Other systemic damage",
@@ -239,9 +239,10 @@ GROUP_PLAIN = {
 
 
 def fig_importance() -> str:
-    df = pd.read_csv(RESULTS / "dialysis_feature_importance.csv")
+    df = pd.read_csv(RESULTS / "esrd_feature_importance.csv")
     rest = df[df["group"].str.startswith("Everything else")].iloc[0]
-    groups = df[~df["group"].str.startswith("Everything else")].copy()
+    named = df[df["group"] == "All named groups together"].iloc[0]
+    groups = df[~df["group"].str.startswith(("Everything else", "All named"))].copy()
     groups = groups.sort_values("pct_of_model", ascending=False)
 
     w, top, row = 860, 104, 34
@@ -263,9 +264,10 @@ def fig_importance() -> str:
     base_y = top + row * len(groups) + 14
     parts.append(f'<line x1="24" y1="{base_y}" x2="{w - 24}" y2="{base_y}" stroke="{BORDER}"/>')
     parts.append(text(24, base_y + 22,
-                      f'All {int(groups["codes"].sum())} of these codes together: '
-                      f'32% of the score. The other {int(rest["codes"]):,} codes the model '
-                      f'uses: {rest["pct_of_model"]:.0f}%.', 12, INK_2))
+                      f'All {int(named["codes"])} of these codes together: '
+                      f'{named["pct_of_model"]:.0f}% of the score. The other '
+                      f'{int(rest["codes"]):,} codes the model uses: '
+                      f'{rest["pct_of_model"]:.0f}%.', 12, INK_2))
     parts.append(text(24, base_y + 40,
                       "The two overlap and do not sum — this measures each group's "
                       "contribution separately, not a split of a whole.", 11, INK_3))
@@ -280,8 +282,7 @@ def fig_importance() -> str:
 
 
 TARGET_PLAIN = {
-    "Z992": "Being treated with kidney dialysis",
-    "N186": "Having end-stage kidney disease",
+    "N186": "End-stage kidney disease",
     "I509": "Heart failure",
     "E119": "Type 2 diabetes",
     "G4733": "Sleep apnoea",
@@ -293,33 +294,26 @@ def fig_targets() -> str:
     df = pd.read_csv(RESULTS / "target_comparison.csv").sort_values(
         "lift_over_chance", ascending=False)
 
-    w, top, row = 860, 116, 38
+    w, top, row = 860, 100, 40
     h = top + row * len(df) + 76
     x0, bar_w = 400, 300
     vmax = float(df["lift_over_chance"].max()) * 1.05
 
-    parts = [
-        f'<rect x="24" y="82" width="11" height="11" rx="3" fill="{BLUE}"/>',
-        text(42, 92, "A condition the patient has", 12, INK_2),
-        f'<rect x="256" y="82" width="11" height="11" rx="3" fill="{ORANGE}"/>',
-        text(274, 92, "A treatment they receive", 12, INK_2),
-    ]
+    parts = []
     for i, (_, r) in enumerate(df.iterrows()):
         y = top + i * row
         label = TARGET_PLAIN.get(r["code"], r["description"][:38])
-        is_treatment = r.get("kind") == "treatment status"
-        parts.append(text(24, y + 15, label, 13, INK_2))
-        parts.append(text(24, y + 30, f'{r["prevalence_pct"]:.1f}% of patients',
+        parts.append(text(24, y + 16, label, 13, INK_2))
+        parts.append(text(24, y + 31, f'{r["prevalence_pct"]:.1f}% of patients',
                           10.5, INK_3))
-        parts.append(f'<rect x="{x0}" y="{y + 3}" width="{bar_w}" height="18" fill="{GRID}" rx="4"/>')
-        parts.append(bar(x0, y + 3, bar_w * r["lift_over_chance"] / vmax, 18,
-                         ORANGE if is_treatment else BLUE))
-        parts.append(text(x0 + bar_w + 12, y + 17, f'{r["lift_over_chance"]:.0f}x', 14,
+        parts.append(f'<rect x="{x0}" y="{y + 4}" width="{bar_w}" height="18" fill="{GRID}" rx="4"/>')
+        parts.append(bar(x0, y + 4, bar_w * r["lift_over_chance"] / vmax, 18, BLUE))
+        parts.append(text(x0 + bar_w + 12, y + 18, f'{r["lift_over_chance"]:.0f}x', 14,
                           INK, weight=600))
 
-    parts.append(text(24, top + row * len(df) + 24,
-                      "The top two are the same organ: the disease, and the treatment for it. "
-                      "Both had every kidney code removed first.", 11.5, INK_3))
+    parts.append(text(24, top + row * len(df) + 26,
+                      "Kidney disease had every kidney code removed first; the other four "
+                      "use the same automatic clue filter.", 11.5, INK_3))
 
     return frame(
         w, h,

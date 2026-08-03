@@ -1,5 +1,0 @@
-ranked_by_model,actually_on_dialysis,hit_rate_pct,expected_if_picked_at_random,test_set_size
-100,69,69.0,2,150000
-500,318,63.6,12,150000
-1000,593,59.3,24,150000
-5000,1762,35.24,118,150000

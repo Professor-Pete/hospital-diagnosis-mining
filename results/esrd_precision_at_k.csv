@@ -1,0 +1,5 @@
+ranked_by_model,actually_have_esrd,hit_rate_pct,expected_if_picked_at_random,test_set_size
+100,90,90.0,3,150000
+500,399,79.80000000000001,15,150000
+1000,712,71.2,30,150000
+5000,2225,44.5,150,150000

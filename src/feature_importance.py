@@ -1,7 +1,7 @@
-"""How much predictive power does each part of the dialysis signature carry?
+"""How much predictive power does each part of the kidney-failure signature carry?
 
-The de-leaked model identifies dialysis patients without ever seeing a kidney
-code. Its surviving predictors fall into a few clinical groups, and the
+The de-leaked model identifies end-stage renal disease without ever seeing a
+kidney code. Its surviving predictors fall into a few clinical groups, and the
 obvious question is which of them is doing the work.
 
 Regression coefficients answer a different question: they give the effect of
@@ -16,7 +16,7 @@ everything else intact, and the drop in average precision is recorded. That
 is a direct answer to "how much predictive power did this carry", and it
 handles the correlation correctly because the whole group moves at once.
 
-Run after predict_dialysis.py:  python src/feature_importance.py
+Run after predict_esrd.py:  python src/feature_importance.py
 """
 from __future__ import annotations
 
@@ -30,7 +30,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
 from config import RESULTS
-from predict_dialysis import SEED, TARGET, load, regimes, sample
+from predict_esrd import SEED, TARGET, load, regimes, sample
 
 N_REPEATS = 5
 STRICT = "also no renal category at all"
@@ -39,8 +39,8 @@ STRICT = "also no renal category at all"
 # the condition *is*, not by ICD chapter — the vascular-access codes sit in
 # the injury/complication chapter but they are a dialysis phenomenon.
 GROUPS = {
-    # The classic reasons a failing kidney sends someone to a dialysis
-    # session: potassium and acid the body can no longer clear.
+    # The classic consequences of kidneys that can no longer filter blood:
+    # potassium and acid the body cannot clear.
     "Electrolyte & acid-base": ["E875", "E872", "E871", "E8749"],
     "Bone & mineral chemistry": [
         "E839", "E8359", "E213", "E211", "E892", "M898X9", "M899", "E8351",
@@ -98,19 +98,19 @@ def main() -> None:
 
     # Average precision is hard to read as a number. Precision-at-k says the
     # same thing concretely: take the k patients the model ranks highest, and
-    # count how many really are on dialysis, against what picking at random
+    # count how many really have the disease, against what picking at random
     # would have given.
     order = np.argsort(prob)[::-1]
     prevalence = y_te.mean()
     pak = pd.DataFrame([
         {"ranked_by_model": k,
-         "actually_on_dialysis": int(y_te[order[:k]].sum()),
+         "actually_have_esrd": int(y_te[order[:k]].sum()),
          "hit_rate_pct": 100 * y_te[order[:k]].mean(),
          "expected_if_picked_at_random": round(k * prevalence),
          "test_set_size": len(y_te)}
         for k in (100, 500, 1000, 5000)
     ])
-    pak.to_csv(RESULTS / "dialysis_precision_at_k.csv", index=False)
+    pak.to_csv(RESULTS / "esrd_precision_at_k.csv", index=False)
     print(pak.to_string(index=False), "\n")
 
     pos = {c: i for i, c in enumerate(names)}
@@ -155,6 +155,11 @@ def main() -> None:
         Xp = with_permuted_columns(X_te, rest, rng)
         drops.append(base - average_precision_score(y_te, model.predict_proba(Xp)[:, 1]))
     rows.append({
+        "group": "All named groups together", "codes": len(named),
+        "ap_drop": named_drop, "ap_drop_sd": 0.0,
+        "pct_of_model": 100 * named_drop / base, "example_codes": "",
+    })
+    rows.append({
         "group": "Everything else (all remaining codes)", "codes": len(rest),
         "ap_drop": float(np.mean(drops)), "ap_drop_sd": float(np.std(drops)),
         "pct_of_model": 100 * float(np.mean(drops)) / base, "example_codes": "",
@@ -166,8 +171,8 @@ def main() -> None:
 
     df = pd.DataFrame(rows).sort_values("ap_drop", ascending=False)
     df["baseline_ap"] = base
-    df.to_csv(RESULTS / "dialysis_feature_importance.csv", index=False)
-    print(f"\nwrote {(RESULTS / 'dialysis_feature_importance.csv').name}")
+    df.to_csv(RESULTS / "esrd_feature_importance.csv", index=False)
+    print(f"\nwrote {(RESULTS / 'esrd_feature_importance.csv').name}")
     print(df[["group", "codes", "ap_drop", "pct_of_model"]]
           .to_string(index=False, float_format=lambda v: f"{v:.4f}"))
 

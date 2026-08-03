@@ -1,15 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 244" width="860" height="244" role="img" aria-label="Spotting dialysis patients with every kidney clue taken away">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 244" width="860" height="244" role="img" aria-label="Spotting failed kidneys with every kidney clue taken away">
 <rect x="0.5" y="0.5" width="859" height="243" rx="10" fill="#fcfcfb" stroke="#e4e3df"/>
-<text x="24.0" y="34.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" text-anchor="start">Spotting dialysis patients with every kidney clue taken away</text>
-<text x="24.0" y="55.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">How reliably the model picks them out, next to what random guessing achieves.</text>
+<text x="24.0" y="34.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="16" font-weight="600" fill="#0b0b0b" text-anchor="start">Spotting failed kidneys with every kidney clue taken away</text>
+<text x="24.0" y="55.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12.5" font-weight="400" fill="#52514e" text-anchor="start">How reliably the model finds end-stage kidney disease, next to random guessing.</text>
 <text x="24.0" y="114.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">Guessing at random</text>
 <rect x="380" y="100" width="300" height="20" fill="#eceae5" rx="4"/>
-<path d="M380.0,100.0 H383.1 a4,4 0 0 1 4,4 V116.0 a4,4 0 0 1 -4,4 H380.0 Z" fill="#b6b4ad"/>
-<text x="692.0" y="115.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">2%</text>
+<path d="M380.0,100.0 H385.0 a4,4 0 0 1 4,4 V116.0 a4,4 0 0 1 -4,4 H380.0 Z" fill="#b6b4ad"/>
+<text x="692.0" y="115.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">3%</text>
 <text x="24.0" y="154.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" font-weight="400" fill="#52514e" text-anchor="start">The model, with every kidney code removed</text>
 <rect x="380" y="140" width="300" height="20" fill="#eceae5" rx="4"/>
-<path d="M380.0,140.0 H487.3 a4,4 0 0 1 4,4 V156.0 a4,4 0 0 1 -4,4 H380.0 Z" fill="#2a78d6"/>
-<text x="692.0" y="155.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">37%</text>
-<text x="24.0" y="196.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#84837d" text-anchor="start">16 times better than chance — without ever being shown a kidney diagnosis.</text>
-<text x="24.0" y="228.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: results/dialysis_model_comparison.csv (logistic regression) · metric is average precision</text>
+<path d="M380.0,140.0 H514.2 a4,4 0 0 1 4,4 V156.0 a4,4 0 0 1 -4,4 H380.0 Z" fill="#2a78d6"/>
+<text x="692.0" y="155.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" font-weight="600" fill="#0b0b0b" text-anchor="start">46%</text>
+<text x="24.0" y="196.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" font-weight="400" fill="#84837d" text-anchor="start">15 times better than chance — without ever being shown a kidney diagnosis.</text>
+<text x="24.0" y="228.0" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="11" font-weight="400" fill="#84837d" text-anchor="start">Source: results/esrd_model_comparison.csv (logistic regression) · metric is average precision</text>
 </svg>

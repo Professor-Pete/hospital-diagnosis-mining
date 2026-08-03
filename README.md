@@ -176,11 +176,34 @@ available, the model still identifies dialysis patients roughly 16 times better
 than chance. It does it by recognising the body-wide damage that kidney failure
 causes.
 
-A note on that 37%, because it is easy to misread: it is not "right 37% of the
-time". It is a summary of how well the model ranks patients by risk, on a scale
-where blind guessing scores 2.3% — the share of patients who are actually on
-dialysis. Every figure below uses the same "times better than chance" framing so
-the numbers can be compared to each other.
+### What "37%" actually means
+
+It does **not** mean the model is right 37% of the time. The model never gives a
+yes-or-no answer at all. It scores every patient and puts them in order, most
+likely to least likely, and the 37% measures how good that ordering is.
+
+Here is the same thing without any statistics. The held-out set has 150,000
+patients, of whom 3,526 — about 1 in 43 — are on dialysis. Pick 1,000 of them:
+
+| Take 1,000 patients… | How many are really on dialysis |
+|---|---|
+| picked at random | about **24** |
+| the 1,000 the model ranks highest | **593** |
+
+Same pool, same 1,000 people pulled out of it. That gap is what the model is
+worth.
+
+The 37% is that hit rate averaged over the whole ranking rather than just the
+top 1,000. It runs at 69% among the top 100, 59% by the top 1,000, and 35% by
+the top 5,000, falling as you dig deeper to scrape up the last few dialysis
+patients. Guessing at random scores 2.3% at *every* depth, because any random
+handful of patients is 2.3% dialysis. 37 ÷ 2.3 ≈ **16 times better than
+chance**, and every figure below uses that same framing so the numbers can be
+compared to one another.
+
+Where you would actually draw the line — flag the top 100? the top 5,000? — is a
+separate decision, trading false alarms against missed patients. The 37% is
+deliberately independent of that choice.
 
 ### How much does each part of that damage actually contribute?
 

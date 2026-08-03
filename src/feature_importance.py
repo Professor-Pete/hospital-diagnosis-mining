@@ -92,8 +92,26 @@ def main() -> None:
         ("clf", LogisticRegression(max_iter=2000, class_weight="balanced", C=1.0)),
     ]).fit(X_tr, y_tr)
 
-    base = average_precision_score(y_te, model.predict_proba(X_te)[:, 1])
+    prob = model.predict_proba(X_te)[:, 1]
+    base = average_precision_score(y_te, prob)
     print(f"{TARGET}: baseline average precision on held-out data = {base:.4f}\n")
+
+    # Average precision is hard to read as a number. Precision-at-k says the
+    # same thing concretely: take the k patients the model ranks highest, and
+    # count how many really are on dialysis, against what picking at random
+    # would have given.
+    order = np.argsort(prob)[::-1]
+    prevalence = y_te.mean()
+    pak = pd.DataFrame([
+        {"ranked_by_model": k,
+         "actually_on_dialysis": int(y_te[order[:k]].sum()),
+         "hit_rate_pct": 100 * y_te[order[:k]].mean(),
+         "expected_if_picked_at_random": round(k * prevalence),
+         "test_set_size": len(y_te)}
+        for k in (100, 500, 1000, 5000)
+    ])
+    pak.to_csv(RESULTS / "dialysis_precision_at_k.csv", index=False)
+    print(pak.to_string(index=False), "\n")
 
     pos = {c: i for i, c in enumerate(names)}
     rng = np.random.default_rng(SEED)
